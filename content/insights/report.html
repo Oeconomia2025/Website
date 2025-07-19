@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -31,6 +31,7 @@
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            text-align: center;
         }
 
         .header h1 {
@@ -329,82 +330,76 @@
 </head>
 <body>
     <!-- Navigation Trigger Button -->
-<button class="floating-nav-trigger" type="button" aria-label="Open Navigation">
-    <span>☰</span>
-</button>
+    <button class="floating-nav-trigger" type="button" aria-label="Open Navigation">
+        <span>☰</span>
+    </button>
 
-<!-- Navigation Overlay (for mobile) -->
-<div class="floating-nav-overlay"></div>
+    <!-- Navigation Overlay (for mobile) -->
+    <div class="floating-nav-overlay"></div>
 
-<!-- Floating Side Navigation -->
-<!-- Main Navigation -->
-<nav class="floating-nav" role="navigation" aria-label="Main Navigation">
-    <!-- Navigation Header -->
-    <div class="floating-nav-header">
-        <h2 class="floating-nav-title">OECONOMIA</h2>
-        <p class="floating-nav-subtitle">Protocol Suite</p>
-    </div>
-
-    <!-- Navigation Content -->
-    <div class="floating-nav-content">
-        
-        <!-- Dashboard Section -->
-        <div class="floating-nav-section">
-
-            <div class="floating-nav-section-title">Insights</div>
-            
-
-            
-            <a href="report.html" class="floating-nav-item" data-nav-id="reports">
-                <span class="floating-nav-item-icon">🟩</span>
-                <span class="floating-nav-item-text">Reports</span>
-            </a>
-            
-            <a href="forum.html" class="floating-nav-item" data-nav-id="forums">
-                <span class="floating-nav-item-icon">🟨</span>
-                <span class="floating-nav-item-text">Forums</span>
-            </a>
-            
-            <a href="stats.html" class="floating-nav-item" data-nav-id="stats">
-                <span class="floating-nav-item-icon">⬜️</span>
-                <span class="floating-nav-item-text">Statistics</span>
-            </a>
-        </div>
+    <!-- Main Navigation -->
+    <nav class="floating-nav" role="navigation" aria-label="Main Navigation">
+        <!-- Navigation Header -->
+        <div class="floating-nav-header">
+            <h2 class="floating-nav-title">OECONOMIA</h2>
+            <p class="floating-nav-subtitle">Protocol Suite</p>
         </div>
 
-        <!-- External Links Section -->
-        <div class="floating-nav-section">
-            <div class="floating-nav-section-title">Connect</div>
-                        <a href="../../index.html" class="floating-nav-item" data-nav-id="home">
-                <span class="floating-nav-item-icon">🟢</span>
-                <span class="floating-nav-item-text">Website</span>
-            </a>
+        <!-- Navigation Content -->
+        <div class="floating-nav-content">
             
-            <a href="https://discord.gg/oeconomia" class="floating-nav-item" data-nav-id="discord" target="_blank">
-                <span class="floating-nav-item-icon">🟡</span>
-                <span class="floating-nav-item-text">Discord</span>
-            </a>
-            
-            <a href="https://twitter.com/oeconomia" class="floating-nav-item" data-nav-id="twitter" target="_blank">
-                <span class="floating-nav-item-icon">⚪️</span>
-                <span class="floating-nav-item-text">Twitter</span>
-            </a>
-            
+            <!-- Dashboard Section -->
+            <div class="floating-nav-section">
+                <div class="floating-nav-section-title">Insights</div>
+                
+                <a href="report.html" class="floating-nav-item" data-nav-id="reports">
+                    <span class="floating-nav-item-icon">🟩</span>
+                    <span class="floating-nav-item-text">Reports</span>
+                </a>
+                
+                <a href="forum.html" class="floating-nav-item" data-nav-id="forums">
+                    <span class="floating-nav-item-icon">🟨</span>
+                    <span class="floating-nav-item-text">Forums</span>
+                </a>
+                
+                <a href="stats.html" class="floating-nav-item" data-nav-id="stats">
+                    <span class="floating-nav-item-icon">⬜️</span>
+                    <span class="floating-nav-item-text">Statistics</span>
+                </a>
+            </div>
 
-        </div>
-    </div>
-
-    <!-- Navigation Footer -->
-    <div class="floating-nav-footer">
-        <div class="floating-nav-user">
-            <div class="floating-nav-avatar">OE</div>
-            <div class="floating-nav-user-info">
-                <div class="floating-nav-user-name">Guardian User</div>
-                <div class="floating-nav-user-role">Enhanced Tier</div>
+            <!-- External Links Section -->
+            <div class="floating-nav-section">
+                <div class="floating-nav-section-title">Connect</div>
+                
+                <a href="../../index.html" class="floating-nav-item" data-nav-id="home">
+                    <span class="floating-nav-item-icon">🟢</span>
+                    <span class="floating-nav-item-text">Website</span>
+                </a>
+                
+                <a href="https://discord.gg/oeconomia" class="floating-nav-item" data-nav-id="discord" target="_blank">
+                    <span class="floating-nav-item-icon">🟡</span>
+                    <span class="floating-nav-item-text">Discord</span>
+                </a>
+                
+                <a href="https://twitter.com/oeconomia" class="floating-nav-item" data-nav-id="twitter" target="_blank">
+                    <span class="floating-nav-item-icon">⚪️</span>
+                    <span class="floating-nav-item-text">Twitter</span>
+                </a>
             </div>
         </div>
-    </div>
-</nav>
+
+        <!-- Navigation Footer -->
+        <div class="floating-nav-footer">
+            <div class="floating-nav-user">
+                <div class="floating-nav-avatar">OE</div>
+                <div class="floating-nav-user-info">
+                    <div class="floating-nav-user-name">Guardian User</div>
+                    <div class="floating-nav-user-role">Enhanced Tier</div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="container">
         <div class="header">

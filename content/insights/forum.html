@@ -3,9 +3,1241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Oeconomia Community Forums</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-stat {
+            text-align: center;
+        }
+
+        .header-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .header-stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .forum-controls {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .forum-filter {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .forum-filter:hover,
+        .forum-filter.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .new-post-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .new-post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .forum-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .forum-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .section-badge {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .category-card {
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card.general { 
+            background: rgba(102, 126, 234, 0.1); 
+            border-left-color: #667eea;
+        }
+        .category-card.governance { 
+            background: rgba(255, 0, 255, 0.1); 
+            border-left-color: #ff00ff;
+        }
+        .category-card.technical { 
+            background: rgba(0, 212, 255, 0.1); 
+            border-left-color: #00d4ff;
+        }
+        .category-card.trading { 
+            background: rgba(255, 136, 0, 0.1); 
+            border-left-color: #ff8800;
+        }
+        .category-card.support { 
+            background: rgba(0, 255, 136, 0.1); 
+            border-left-color: #00ff88;
+        }
+        .category-card.announcements { 
+            background: rgba(255, 68, 68, 0.1); 
+            border-left-color: #ff4444;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .category-count {
+            font-size: 0.8rem;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .category-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+
+        .topic-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .topic-content {
+            flex: 1;
+        }
+
+        .topic-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .topic-meta {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .topic-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .topic-replies {
+            font-size: 0.8rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .topic-time {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .online-users {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: #667eea;
+        }
+
+        .user-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+        }
+
+        .activity-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-text {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .activity-time {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .pinned-badge {
+            background: #ff8800;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .locked-badge {
+            background: #ff4444;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        @media (max-width: 1200px) {
+            .forum-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header-stats {
+                gap: 15px;
+            }
+            
+            .forum-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-bar {
+                min-width: auto;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating Navigation Styles */
+        .floating-nav {
+            position: fixed;
+            top: 45.5vh;
+            left: -210px;
+            width: 200px;
+            height: 85vh;
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateY(-50%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .floating-nav.open {
+            left: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-nav-trigger {
+            position: fixed;
+            top: 8%;
+            left: 14px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 1001;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-nav-trigger:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .floating-nav-trigger.active {
+            background: linear-gradient(45deg, #ff4444, #764ba2);
+        }
+
+        .floating-nav-header {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .floating-nav-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-nav-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin: 2px 0 0 0;
+        }
+
+        .floating-nav-content {
+            padding: 20px 0;
+            max-height: calc(94vh - 80px);
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .floating-nav-section {
+            margin-bottom: 5px;
+        }
+
+        .floating-nav-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fbfbfb;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 5px;
+            margin-bottom: 0px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .floating-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+
+        .floating-nav-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-left-color: #667eea;
+            padding-left: 25px;
+        }
+
+        .floating-nav-item.active {
+            background: rgba(102, 126, 234, 0.15);
+            border-left-color: #667eea;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .floating-nav-item-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #667eea;
+        }
+
+        .floating-nav-item-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .floating-nav-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: rgba(0, 0, 0, 0.02);
+            margin-top: auto;
+            flex-shrink: 0;
+        }
+
+        .floating-nav-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .floating-nav-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .floating-nav-user-info {
+            flex: 1;
+        }
+
+        .floating-nav-user-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .floating-nav-user-role {
+            font-size: 0.7rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .floating-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- Navigation Trigger Button -->
+    <button class="floating-nav-trigger" type="button" aria-label="Open Navigation">
+        <span>☰</span>
+    </button>
+
+    <!-- Navigation Overlay (for mobile) -->
+    <div class="floating-nav-overlay"></div>
+
+    <!-- Main Navigation -->
+    <nav class="floating-nav" role="navigation" aria-label="Main Navigation">
+        <!-- Navigation Header -->
+        <div class="floating-nav-header">
+            <h2 class="floating-nav-title">OECONOMIA</h2>
+            <p class="floating-nav-subtitle">Protocol Suite</p>
+        </div>
+
+        <!-- Navigation Content -->
+        <div class="floating-nav-content">
+            
+            <!-- Dashboard Section -->
+            <div class="floating-nav-section">
+                <div class="floating-nav-section-title">Insights</div>
+                
+                <a href="report.html" class="floating-nav-item" data-nav-id="reports">
+                    <span class="floating-nav-item-icon">🟩</span>
+                    <span class="floating-nav-item-text">Reports</span>
+                </a>
+                
+                <a href="forum.html" class="floating-nav-item" data-nav-id="forums">
+                    <span class="floating-nav-item-icon">🟨</span>
+                    <span class="floating-nav-item-text">Forums</span>
+                </a>
+                
+                <a href="stats.html" class="floating-nav-item" data-nav-id="stats">
+                    <span class="floating-nav-item-icon">⬜️</span>
+                    <span class="floating-nav-item-text">Statistics</span>
+                </a>
+            </div>
+
+            <!-- External Links Section -->
+            <div class="floating-nav-section">
+                <div class="floating-nav-section-title">Connect</div>
+                
+                <a href="../../index.html" class="floating-nav-item" data-nav-id="home">
+                    <span class="floating-nav-item-icon">🟢</span>
+                    <span class="floating-nav-item-text">Website</span>
+                </a>
+                
+                <a href="https://discord.gg/oeconomia" class="floating-nav-item" data-nav-id="discord" target="_blank">
+                    <span class="floating-nav-item-icon">🟡</span>
+                    <span class="floating-nav-item-text">Discord</span>
+                </a>
+                
+                <a href="https://twitter.com/oeconomia" class="floating-nav-item" data-nav-id="twitter" target="_blank">
+                    <span class="floating-nav-item-icon">⚪️</span>
+                    <span class="floating-nav-item-text">Twitter</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="floating-nav-footer">
+            <div class="floating-nav-user">
+                <div class="floating-nav-avatar">OE</div>
+                <div class="floating-nav-user-info">
+                    <div class="floating-nav-user-name">Guardian User</div>
+                    <div class="floating-nav-user-role">Enhanced Tier</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Community Forums</h1>
+            <p>Connect, discuss, and collaborate with the Oeconomia Protocol community</p>
+            <div class="header-stats">
+                <div class="header-stat">
+                    <div class="header-stat-value">12,847</div>
+                    <div class="header-stat-label">Total Members</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-value">3,429</div>
+                    <div class="header-stat-label">Topics</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-value">847</div>
+                    <div class="header-stat-label">Online Now</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-value">28,392</div>
+                    <div class="header-stat-label">Total Posts</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="forum-controls">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search forums, topics, and posts...">
+                <span class="search-icon">🔍</span>
+            </div>
+            
+            <button class="forum-filter active" data-filter="all">All</button>
+            <button class="forum-filter" data-filter="unread">Unread</button>
+            <button class="forum-filter" data-filter="recent">Recent</button>
+            <button class="forum-filter" data-filter="popular">Popular</button>
+            
+            <a href="#" class="new-post-btn">+ New Topic</a>
+        </div>
+
+        <div class="forum-layout">
+            <main class="main-content">
+                <!-- Forum Categories -->
+                <div class="forum-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Forum Categories</h2>
+                        <span class="section-badge">6 Categories</span>
+                    </div>
+                    
+                    <div class="category-grid">
+                        <div class="category-card announcements">
+                            <div class="category-header">
+                                <div class="category-name">📢 Announcements</div>
+                                <div class="category-count">45 topics</div>
+                            </div>
+                            <div class="category-description">
+                                Official protocol updates, important news, and community announcements from the Oeconomia team.
+                            </div>
+                            <div class="category-stats">
+                                <span>Last post: 2 hours ago</span>
+                                <span>Moderators: 3</span>
+                            </div>
+                        </div>
+                        
+                        <div class="category-card general">
+                            <div class="category-header">
+                                <div class="category-name">💬 General Discussion</div>
+                                <div class="category-count">892 topics</div>
+                            </div>
+                            <div class="category-description">
+                                General discussions about DeFi, blockchain, and the broader crypto ecosystem.
+                            </div>
+                            <div class="category-stats">
+                                <span>Last post: 15 minutes ago</span>
+                                <span>Moderators: 5</span>
+                            </div>
+                        </div>
+                        
+                        <div class="category-card governance">
+                            <div class="category-header">
+                                <div class="category-name">🗳️ Governance</div>
+                                <div class="category-count">234 topics</div>
+                            </div>
+                            <div class="category-description">
+                                Proposal discussions, voting coordination, and Guardian community governance activities.
+                            </div>
+                            <div class="category-stats">
+                                <span>Last post: 1 hour ago</span>
+                                <span>Moderators: 7</span>
+                            </div>
+                        </div>
+                        
+                        <div class="category-card technical">
+                            <div class="category-header">
+                                <div class="category-name">⚙️ Technical Discussion</div>
+                                <div class="category-count">567 topics</div>
+                            </div>
+                            <div class="category-description">
+                                Deep dives into protocol mechanics, smart contract discussions, and technical development.
+                            </div>
+                            <div class="category-stats">
+                                <span>Last post: 3 hours ago</span>
+                                <span>Moderators: 4</span>
+                            </div>
+                        </div>
+                        
+                        <div class="category-card trading">
+                            <div class="category-header">
+                                <div class="category-name">📈 Trading & Strategy</div>
+                                <div class="category-count">1,234 topics</div>
+                            </div>
+                            <div class="category-description">
+                                Market analysis, trading strategies, yield farming discussions, and portfolio optimization.
+                            </div>
+                            <div class="category-stats">
+                                <span>Last post: 8 minutes ago</span>
+                                <span>Moderators: 6</span>
+                            </div>
+                        </div>
+                        
+                        <div class="category-card support">
+                            <div class="category-header">
+                                <div class="category-name">🆘 Help & Support</div>
+                                <div class="category-count">457 topics</div>
+                            </div>
+                            <div class="category-description">
+                                Get help with protocol usage, technical issues, wallet connections, and troubleshooting.
+                            </div>
+                            <div class="category-stats">
+                                <span>Last post: 12 minutes ago</span>
+                                <span>Moderators: 8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Topics -->
+                <div class="forum-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Topics</h2>
+                        <span class="section-badge">Hot Discussions</span>
+                    </div>
+                    
+                    <div class="topic-list">
+                        <div class="topic-item">
+                            <div class="topic-icon">📌</div>
+                            <div class="topic-content">
+                                <div class="topic-title">
+                                    Q3 2024 Governance Proposal Summary
+                                    <span class="pinned-badge">Pinned</span>
+                                </div>
+                                <div class="topic-meta">by CoreTeam • in Governance • Started 3 days ago</div>
+                            </div>
+                            <div class="topic-stats">
+                                <div class="topic-replies">47 replies</div>
+                                <div class="topic-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-item">
+                            <div class="topic-icon">🔥</div>
+                            <div class="topic-content">
+                                <div class="topic-title">Best Alluria Lending Strategies for Current Market</div>
+                                <div class="topic-meta">by YieldMaximizer • in Trading & Strategy • Started 1 day ago</div>
+                            </div>
+                            <div class="topic-stats">
+                                <div class="topic-replies">92 replies</div>
+                                <div class="topic-time">15 min ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-item">
+                            <div class="topic-icon">⚡</div>
+                            <div class="topic-content">
+                                <div class="topic-title">Eloqura Bridge Integration Performance Analysis</div>
+                                <div class="topic-meta">by TechAnalyst • in Technical Discussion • Started 6 hours ago</div>
+                            </div>
+                            <div class="topic-stats">
+                                <div class="topic-replies">23 replies</div>
+                                <div class="topic-time">1 hour ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-item">
+                            <div class="topic-icon">❓</div>
+                            <div class="topic-content">
+                                <div class="topic-title">Wallet Connection Issues with Artivya Platform</div>
+                                <div class="topic-meta">by NewUser2024 • in Help & Support • Started 2 hours ago</div>
+                            </div>
+                            <div class="topic-stats">
+                                <div class="topic-replies">8 replies</div>
+                                <div class="topic-time">12 min ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-item">
+                            <div class="topic-icon">🚀</div>
+                            <div class="topic-content">
+                                <div class="topic-title">OEC Token Economics Deep Dive Discussion</div>
+                                <div class="topic-meta">by EconomicExpert • in General Discussion • Started 1 day ago</div>
+                            </div>
+                            <div class="topic-stats">
+                                <div class="topic-replies">156 replies</div>
+                                <div class="topic-time">8 min ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-item">
+                            <div class="topic-icon">🔒</div>
+                            <div class="topic-content">
+                                <div class="topic-title">
+                                    Guardian Tier Upgrade Process Clarification
+                                    <span class="locked-badge">Locked</span>
+                                </div>
+                                <div class="topic-meta">by ModeratorAlice • in Governance • Started 5 days ago</div>
+                            </div>
+                            <div class="topic-stats">
+                                <div class="topic-replies">34 replies</div>
+                                <div class="topic-time">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <!-- Online Users -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Online Members</h3>
+                    <div class="online-users">
+                        <div class="user-item">
+                            <div class="user-avatar">CM</div>
+                            <div class="user-info">
+                                <div class="user-name">CoreMember</div>
+                                <div class="user-role">Elite Guardian</div>
+                            </div>
+                            <div class="user-status"></div>
+                        </div>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar">YM</div>
+                            <div class="user-info">
+                                <div class="user-name">YieldMaster</div>
+                                <div class="user-role">Enhanced Guardian</div>
+                            </div>
+                            <div class="user-status"></div>
+                        </div>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar">TA</div>
+                            <div class="user-info">
+                                <div class="user-name">TechAdvisor</div>
+                                <div class="user-role">Standard Guardian</div>
+                            </div>
+                            <div class="user-status"></div>
+                        </div>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar">DG</div>
+                            <div class="user-info">
+                                <div class="user-name">DeFiGuru</div>
+                                <div class="user-role">Enhanced Guardian</div>
+                            </div>
+                            <div class="user-status"></div>
+                        </div>
+                        
+                        <div class="user-item">
+                            <div class="user-avatar">CS</div>
+                            <div class="user-info">
+                                <div class="user-name">CryptoSage</div>
+                                <div class="user-role">Elite Guardian</div>
+                            </div>
+                            <div class="user-status"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Recent Activity</h3>
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>CoreTeam</strong> pinned a topic in Governance
+                        </div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>YieldMaximizer</strong> replied to "Best Alluria Strategies"
+                        </div>
+                        <div class="activity-time">15 minutes ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>NewUser2024</strong> joined the community
+                        </div>
+                        <div class="activity-time">3 hours ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>TechAnalyst</strong> started a new topic in Technical
+                        </div>
+                        <div class="activity-time">6 hours ago</div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>ModeratorAlice</strong> locked a topic in Governance
+                        </div>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                </div>
+
+                <!-- Forum Stats -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">Forum Statistics</h3>
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>847</strong> members online
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>156</strong> topics created this week
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>2,394</strong> posts this week
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-text">
+                            <strong>89</strong> new members this week
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Initialize floating navigation
+        (function() {
+            'use strict';
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                initFloatingNav();
+                setActiveNavItem();
+                initForumFeatures();
+            });
+
+            function initFloatingNav() {
+                var nav = document.querySelector('.floating-nav');
+                var trigger = document.querySelector('.floating-nav-trigger');
+                var overlay = document.querySelector('.floating-nav-overlay');
+                
+                if (!nav || !trigger) return;
+
+                trigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    toggleNav();
+                });
+
+                if (overlay) {
+                    overlay.addEventListener('click', function() {
+                        closeNav();
+                    });
+                }
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && nav.classList.contains('open')) {
+                        closeNav();
+                    }
+                });
+            }
+
+            function toggleNav() {
+                var nav = document.querySelector('.floating-nav');
+                if (nav.classList.contains('open')) {
+                    closeNav();
+                } else {
+                    openNav();
+                }
+            }
+
+            function openNav() {
+                var nav = document.querySelector('.floating-nav');
+                var trigger = document.querySelector('.floating-nav-trigger');
+                var overlay = document.querySelector('.floating-nav-overlay');
+                
+                nav.classList.add('open');
+                trigger.classList.add('active');
+                
+                if (overlay) {
+                    overlay.classList.add('active');
+                }
+                
+                if (window.innerWidth <= 768) {
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeNav() {
+                var nav = document.querySelector('.floating-nav');
+                var trigger = document.querySelector('.floating-nav-trigger');
+                var overlay = document.querySelector('.floating-nav-overlay');
+                
+                nav.classList.remove('open');
+                trigger.classList.remove('active');
+                
+                if (overlay) {
+                    overlay.classList.remove('active');
+                }
+                
+                document.body.style.overflow = '';
+            }
+
+            function setActiveNavItem() {
+                var navItems = document.querySelectorAll('.floating-nav-item');
+                var currentPage = window.location.pathname.split('/').pop().toLowerCase().replace('.html', '');
+                
+                for (var i = 0; i < navItems.length; i++) {
+                    var item = navItems[i];
+                    var href = item.getAttribute('href');
+                    
+                    if (href && href.indexOf(currentPage) !== -1) {
+                        item.classList.add('active');
+                    }
+                }
+            }
+
+            function initForumFeatures() {
+                // Filter buttons
+                var filterButtons = document.querySelectorAll('.forum-filter');
+                for (var i = 0; i < filterButtons.length; i++) {
+                    filterButtons[i].addEventListener('click', function() {
+                        for (var j = 0; j < filterButtons.length; j++) {
+                            filterButtons[j].classList.remove('active');
+                        }
+                        this.classList.add('active');
+                    });
+                }
+
+                // Topic item clicks
+                var topicItems = document.querySelectorAll('.topic-item');
+                for (var i = 0; i < topicItems.length; i++) {
+                    topicItems[i].addEventListener('click', function() {
+                        console.log('Opening topic:', this.querySelector('.topic-title').textContent);
+                    });
+                }
+
+                // Category card clicks
+                var categoryCards = document.querySelectorAll('.category-card');
+                for (var i = 0; i < categoryCards.length; i++) {
+                    categoryCards[i].addEventListener('click', function() {
+                        console.log('Opening category:', this.querySelector('.category-name').textContent);
+                    });
+                }
+
+                // Search functionality
+                var searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            console.log('Searching for:', this.value);
+                        }
+                    });
+                }
+            }
+
+            console.log('Forums page loaded successfully!');
+        })();
+    </script>
 </body>
 </html>

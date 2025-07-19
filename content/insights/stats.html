@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OEC Token Statistics Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .last-updated {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .time-filter {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .time-filter:hover,
+        .time-filter.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .refresh-btn {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card.supply { border-left-color: #00d4ff; }
+        .stat-card.circulating { border-left-color: #00ff88; }
+        .stat-card.tvl { border-left-color: #ff8800; }
+        .stat-card.guardians { border-left-color: #ff00ff; }
+        .stat-card.proposals { border-left-color: #8800ff; }
+        .stat-card.treasury { border-left-color: #ff4444; }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stat-change.positive { color: #4CAF50; }
+        .stat-change.negative { color: #f44336; }
+        .stat-change.neutral { color: #666; }
+
+        .chart-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .governance-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .governance-tiers {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .tier-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+
+        .tier-item.standard { 
+            background: rgba(0, 212, 255, 0.1); 
+            border-left-color: #00d4ff;
+        }
+        .tier-item.enhanced { 
+            background: rgba(255, 136, 0, 0.1); 
+            border-left-color: #ff8800;
+        }
+        .tier-item.elite { 
+            background: rgba(255, 0, 255, 0.1); 
+            border-left-color: #ff00ff;
+        }
+
+        .tier-info {
+            flex: 1;
+        }
+
+        .tier-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .tier-power {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .tier-count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .protocol-stats {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .protocol-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .protocol-item:last-child {
+            border-bottom: none;
+        }
+
+        .protocol-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .protocol-value {
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .detailed-table {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background: #f8f9ff;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .table td {
+            color: #666;
+        }
+
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #00d4ff 0deg 216deg,
+                #ff8800 216deg 288deg,
+                #00ff88 288deg 324deg,
+                #ff00ff 324deg 342deg,
+                #8800ff 342deg 349.2deg,
+                #ff4444 349.2deg 360deg
+            );
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .pie-chart::after {
+            content: '';
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .pie-chart-label {
+            position: absolute;
+            z-index: 10;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .governance-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+        <link rel="stylesheet" href="../styles/floating-side-nav.css">
+<script src="../scripts/floating-side-nav.js"></script>
+</head>
+<body>
+<!-- Floating Side Navigation - COMPLETE VERSION -->
+<!-- Add this BEFORE your existing <nav class="floating-nav"> element -->
+
+<!-- Navigation Trigger Button -->
+<button class="floating-nav-trigger" type="button" aria-label="Open Navigation">
+    <span>☰</span>
+</button>
+
+<!-- Navigation Overlay (for mobile) -->
+<div class="floating-nav-overlay"></div>
+
+<!-- Your existing navigation HTML goes here -->
+<nav class="floating-nav" role="navigation" aria-label="Main Navigation">
+    <!-- Navigation Header -->
+    <div class="floating-nav-header">
+        <h2 class="floating-nav-title">OECONOMIA</h2>
+        <p class="floating-nav-subtitle">Protocol Suite</p>
+    </div>
+
+    <!-- Navigation Content -->
+    <div class="floating-nav-content">
+        
+        <!-- Dashboard Section -->
+        <div class="floating-nav-section">
+            <div class="floating-nav-section-title">Insights</div>
+            
+            <a href="report.html" class="floating-nav-item" data-nav-id="reports">
+                <span class="floating-nav-item-icon">🟩</span>
+                <span class="floating-nav-item-text">Reports</span>
+            </a>
+            
+            <a href="forum.html" class="floating-nav-item" data-nav-id="forums">
+                <span class="floating-nav-item-icon">🟨</span>
+                <span class="floating-nav-item-text">Forums</span>
+            </a>
+            
+            <a href="stats.html" class="floating-nav-item" data-nav-id="stats">
+                <span class="floating-nav-item-icon">⬜️</span>
+                <span class="floating-nav-item-text">Statistics</span>
+            </a>
+        </div>
+
+        <!-- External Links Section -->
+        <div class="floating-nav-section">
+            <div class="floating-nav-section-title">Connect</div>
+            
+            <a href="../../index.html" class="floating-nav-item" data-nav-id="home">
+                <span class="floating-nav-item-icon">🟢</span>
+                <span class="floating-nav-item-text">Website</span>
+            </a>
+            
+            <a href="https://discord.gg/oeconomia" class="floating-nav-item" data-nav-id="discord" target="_blank">
+                <span class="floating-nav-item-icon">🟡</span>
+                <span class="floating-nav-item-text">Discord</span>
+            </a>
+            
+            <a href="https://twitter.com/oeconomia" class="floating-nav-item" data-nav-id="twitter" target="_blank">
+                <span class="floating-nav-item-icon">⚪️</span>
+                <span class="floating-nav-item-text">Twitter</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="floating-nav-footer">
+        <div class="floating-nav-user">
+            <div class="floating-nav-avatar">OE</div>
+            <div class="floating-nav-user-info">
+                <div class="floating-nav-user-name">Guardian User</div>
+                <div class="floating-nav-user-role">Enhanced Tier</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>OEC Token Statistics</h1>
+            <p>Real-time metrics and analytics for the Oeconomia Protocol ecosystem</p>
+            <p class="last-updated">Last Updated: <span id="lastUpdated">Loading...</span></p>
+        </div>
+
+        <div class="controls">
+            <button class="time-filter active" data-period="1h">1H</button>
+            <button class="time-filter" data-period="24h">24H</button>
+            <button class="time-filter" data-period="7d">7D</button>
+            <button class="time-filter" data-period="30d">30D</button>
+            <button class="time-filter" data-period="1y">1Y</button>
+            <button class="refresh-btn" onclick="refreshData()">🔄 Refresh Data</button>
+        </div>
+
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card supply">
+                <div class="stat-title">Total Supply</div>
+                <div class="stat-value">100,000,000</div>
+                <div class="stat-change neutral">OEC • Fixed Supply</div>
+            </div>
+            
+            <div class="stat-card circulating">
+                <div class="stat-title">Circulating Supply</div>
+                <div class="stat-value">82,500,000</div>
+                <div class="stat-change positive">+2.3% this month</div>
+            </div>
+            
+            <div class="stat-card tvl">
+                <div class="stat-title">Total Value Locked</div>
+                <div class="stat-value">$24.7M</div>
+                <div class="stat-change positive">+15.2% this week</div>
+            </div>
+            
+            <div class="stat-card guardians">
+                <div class="stat-title">Active Guardians</div>
+                <div class="stat-value">2,847</div>
+                <div class="stat-change positive">+127 this week</div>
+            </div>
+            
+            <div class="stat-card proposals">
+                <div class="stat-title">Active Proposals</div>
+                <div class="stat-value">7</div>
+                <div class="stat-change neutral">3 ending soon</div>
+            </div>
+            
+            <div class="stat-card treasury">
+                <div class="stat-title">Treasury Value</div>
+                <div class="stat-value">$8.2M</div>
+                <div class="stat-change positive">+5.8% this month</div>
+            </div>
+        </div>
+
+        <!-- Token Distribution Chart -->
+        <div class="chart-section">
+            <div class="chart-header">
+                <h3 class="chart-title">Token Distribution</h3>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+                <div>
+                    <div class="pie-chart">
+                        <div class="pie-chart-label">
+                            <div style="font-size: 0.8rem;">Total</div>
+                            <div>100M OEC</div>
+                        </div>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #00d4ff;"></div>
+                            <div class="legend-text">Public Allocation (60%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff8800;"></div>
+                            <div class="legend-text">Listing Purposes (20%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #00ff88;"></div>
+                            <div class="legend-text">Marketing & Growth (10%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff00ff;"></div>
+                            <div class="legend-text">Treasury Initial (5%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #8800ff;"></div>
+                            <div class="legend-text">Lead Dev Locked (2%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff4444;"></div>
+                            <div class="legend-text">Future Team + Lead Dev (3%)</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 15px; color: #333;">Distribution Details</h4>
+                    <div style="space-y: 10px;">
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span>Public Allocation</span>
+                            <span style="font-weight: 600;">60,000,000 OEC</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span>Listing Purposes</span>
+                            <span style="font-weight: 600;">20,000,000 OEC</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span>Marketing & Growth</span>
+                            <span style="font-weight: 600;">10,000,000 OEC</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span>Treasury Initial</span>
+                            <span style="font-weight: 600;">5,000,000 OEC</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                            <span>Development Allocations</span>
+                            <span style="font-weight: 600;">5,000,000 OEC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Governance and Protocol Stats -->
+        <div class="governance-section">
+            <div class="governance-tiers">
+                <h3 class="chart-title" style="margin-bottom: 20px;">Guardian Tiers</h3>
+                
+                <div class="tier-item standard">
+                    <div class="tier-info">
+                        <div class="tier-name">Standard Guardians</div>
+                        <div class="tier-power">1x voting power • 50% participation req.</div>
+                    </div>
+                    <div class="tier-count">1,892</div>
+                </div>
+                
+                <div class="tier-item enhanced">
+                    <div class="tier-info">
+                        <div class="tier-name">Enhanced Guardians</div>
+                        <div class="tier-power">1.5x voting power • 75% participation req.</div>
+                    </div>
+                    <div class="tier-count">743</div>
+                </div>
+                
+                <div class="tier-item elite">
+                    <div class="tier-info">
+                        <div class="tier-name">Elite Guardians</div>
+                        <div class="tier-power">2x voting power • 90%+ participation req.</div>
+                    </div>
+                    <div class="tier-count">212</div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9ff; border-radius: 8px;">
+                    <div style="font-weight: 600; color: #333; margin-bottom: 5px;">Total OECgrd Staked</div>
+                    <div style="font-size: 1.8rem; font-weight: 700; color: #667eea;">45,830,000 OECgrd</div>
+                    <div style="font-size: 0.8rem; color: #666;">55.4% of circulating supply</div>
+                </div>
+            </div>
+            
+            <div class="protocol-stats">
+                <h3 class="chart-title" style="margin-bottom: 20px;">Cross-Protocol Metrics</h3>
+                
+                <div class="protocol-item">
+                    <div class="protocol-name">Oeconomia Core</div>
+                    <div class="protocol-value">2,847 Active Guardians</div>
+                </div>
+                
+                <div class="protocol-item">
+                    <div class="protocol-name">Alluria (Lending)</div>
+                    <div class="protocol-value">$12.3M TVL</div>
+                </div>
+                
+                <div class="protocol-item">
+                    <div class="protocol-name">Eloqura (AMM/Bridge)</div>
+                    <div class="protocol-value">$8.9M TVL</div>
+                </div>
+                
+                <div class="protocol-item">
+                    <div class="protocol-name">Artivya (Trading/NFT)</div>
+                    <div class="protocol-value">$2.1M TVL</div>
+                </div>
+                
+                <div class="protocol-item">
+                    <div class="protocol-name">Iridescia (Infrastructure)</div>
+                    <div class="protocol-value">$1.4M TVL</div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9ff; border-radius: 8px;">
+                    <div style="font-weight: 600; color: #333; margin-bottom: 5px;">Network Fees Collected (7d)</div>
+                    <div style="font-size: 1.8rem; font-weight: 700; color: #667eea;">87,450 OEC</div>
+                    <div style="font-size: 0.8rem; color: #666;">~$342K USD equivalent</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Governance Table -->
+        <div class="detailed-table">
+            <h3 class="chart-title" style="margin-bottom: 20px;">Active Governance Proposals</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Proposal ID</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Votes For</th>
+                        <th>Votes Against</th>
+                        <th>Participation</th>
+                        <th>Ends</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OEP-001</td>
+                        <td>Alluria Collateral Ratio Adjustment</td>
+                        <td>Standard</td>
+                        <td>Active</td>
+                        <td>12,450,000</td>
+                        <td>3,200,000</td>
+                        <td>34.2%</td>
+                        <td>3 days</td>
+                    </tr>
+                    <tr>
+                        <td>OEP-002</td>
+                        <td>Treasury Allocation for Q3 Development</td>
+                        <td>Treasury</td>
+                        <td>Active</td>
+                        <td>18,900,000</td>
+                        <td>2,100,000</td>
+                        <td>45.8%</td>
+                        <td>8 days</td>
+                    </tr>
+                    <tr>
+                        <td>OEP-003</td>
+                        <td>Eloqura AMM Fee Structure Update</td>
+                        <td>Standard</td>
+                        <td>Active</td>
+                        <td>9,800,000</td>
+                        <td>5,400,000</td>
+                        <td>33.2%</td>
+                        <td>2 days</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Network Health Metrics -->
+        <div class="detailed-table">
+            <h3 class="chart-title" style="margin-bottom: 20px;">Network Health Metrics</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Value</th>
+                        <th>24h Change</th>
+                        <th>7d Change</th>
+                        <th>Target</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Guardian Participation Rate</td>
+                        <td>87.3%</td>
+                        <td style="color: #4CAF50;">+2.1%</td>
+                        <td style="color: #4CAF50;">+5.8%</td>
+                        <td>80%</td>
+                        <td style="color: #4CAF50;">✓ Healthy</td>
+                    </tr>
+                    <tr>
+                        <td>Proposal Execution Rate</td>
+                        <td>94.7%</td>
+                        <td style="color: #666;">0%</td>
+                        <td style="color: #4CAF50;">+3.2%</td>
+                        <td>90%</td>
+                        <td style="color: #4CAF50;">✓ Excellent</td>
+                    </tr>
+                    <tr>
+                        <td>Cross-Protocol Activity</td>
+                        <td>$1.2M daily</td>
+                        <td style="color: #4CAF50;">+15.3%</td>
+                        <td style="color: #4CAF50;">+28.7%</td>
+                        <td>$800K</td>
+                        <td style="color: #4CAF50;">✓ Above Target</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function updateTimestamp() {
+            var now = new Date();
+            var element = document.getElementById('lastUpdated');
+            if (element) {
+                element.textContent = now.toLocaleString();
+            }
+        }
+
+        function refreshData() {
+            var button = document.querySelector('.refresh-btn');
+            if (button) {
+                button.textContent = '🔄 Updating...';
+                button.disabled = true;
+                
+                setTimeout(function() {
+                    updateTimestamp();
+                    button.textContent = '🔄 Refresh Data';
+                    button.disabled = false;
+                }, 1500);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTimestamp();
+            
+            var filters = document.querySelectorAll('.time-filter');
+            for (var i = 0; i < filters.length; i++) {
+                filters[i].addEventListener('click', function() {
+                    var allFilters = document.querySelectorAll('.time-filter');
+                    for (var j = 0; j < allFilters.length; j++) {
+                        allFilters[j].classList.remove('active');
+                    }
+                    this.classList.add('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

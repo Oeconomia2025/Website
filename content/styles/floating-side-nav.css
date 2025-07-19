@@ -1,0 +1,309 @@
+/* Floating Side Navigation Styles */
+.floating-nav {
+    position: fixed;
+    top: 45.5vh;
+    left: -210px;
+    width: 200px;
+    height: 85vh;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateY(-50%);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-nav.open {
+    left: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.floating-nav-trigger {
+    position: fixed;
+    top: 8%;
+    left: 14px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    z-index: 1001;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-nav-trigger:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 30px rgba(102, 126, 234, 0.5);
+}
+
+.floating-nav-trigger.active {
+
+    background: linear-gradient(45deg, #ff4444, #764ba2);
+}
+
+.floating-nav-header {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.floating-nav-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.floating-nav-subtitle {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    margin: 2px 0 0 0;
+}
+
+.floating-nav-content {
+    padding: 20px 0;
+    max-height: calc(94vh - 80px);
+    overflow-y: auto;
+    flex: 1;
+}
+
+.floating-nav-section {
+    margin-bottom: 5px;
+}
+
+.floating-nav-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fbfbfb;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #eee;
+}
+
+.floating-nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 3px solid transparent;
+}
+
+.floating-nav-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+    border-left-color: #667eea;
+    padding-left: 25px;
+}
+
+.floating-nav-item.active {
+    background: rgba(102, 126, 234, 0.15);
+    border-left-color: #667eea;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.floating-nav-item-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #667eea;
+}
+
+.floating-nav-item-text {
+    flex: 1;
+    font-size: 1rem;
+}
+
+.floating-nav-item-badge {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+}
+
+.floating-nav-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    background: rgba(0, 0, 0, 0.02);
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.floating-nav-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.floating-nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.floating-nav-user-info {
+    flex: 1;
+}
+
+.floating-nav-user-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.floating-nav-user-role {
+    font-size: 0.7rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Overlay for mobile */
+.floating-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.floating-nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Notification dot */
+.floating-nav-item .notification-dot {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    width: 8px;
+    height: 8px;
+    background: #ff4444;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 68, 68, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .floating-nav {
+        width: 100%;
+        left: -100%;
+        border-radius: 0;
+        height: 100vh;
+        max-height: 100vh;
+    }
+    
+    .floating-nav.open {
+        left: 0;
+    }
+    
+    .floating-nav-trigger {
+        left: 15px;
+    }
+    
+    .floating-nav-trigger.active {
+        left: 15px;
+        transform: translateY(-50%) rotate(45deg);
+    }
+    
+    .floating-nav-content {
+        max-height: calc(100vh - 180px);
+    }
+}
+
+/* Custom scrollbar for nav content */
+.floating-nav-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.floating-nav-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.floating-nav-content::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 2px;
+}
+
+.floating-nav-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.5);
+}
+
+/* Smooth entrance animation */
+.floating-nav-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInNav 0.3s ease forwards;
+}
+
+.floating-nav.open .floating-nav-item {
+    animation-delay: 0.1s;
+}
+
+.floating-nav.open .floating-nav-item:nth-child(2) { animation-delay: 0.15s; }
+.floating-nav.open .floating-nav-item:nth-child(3) { animation-delay: 0.2s; }
+.floating-nav.open .floating-nav-item:nth-child(4) { animation-delay: 0.25s; }
+.floating-nav.open .floating-nav-item:nth-child(5) { animation-delay: 0.3s; }
+.floating-nav.open .floating-nav-item:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes slideInNav {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

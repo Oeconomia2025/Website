@@ -93,7 +93,7 @@ function initializeTokenomicsCharts() {
             "#FFB85F",
             "#FF8BB3",
           ],
-          cutout: "60%",
+          cutout: "70%",
           borderWidth: 0,
           borderColor: "rgba(255, 255, 255, 0.1)",
           hoverBorderColor: "#ffffff",
@@ -149,7 +149,7 @@ function initializeTokenomicsCharts() {
     },
     options: {
       ...chartHoverOptions,
-      cutout: "50%",
+      cutout: "70%",
       plugins: {
         ...chartHoverOptions.plugins,
         tooltip: {

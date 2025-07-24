@@ -2,15 +2,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Slide out effect initialized');
     
-    // Find ALL test.html links (with or without hash)
-    const tokenInfoLinks = document.querySelectorAll('a[href^="test.html"]');
+    // Find ALL tokeninfo links (with or without hash)
+    const tokenInfoLinks = document.querySelectorAll('a[href^="tokeninfo"]');
     
     if (tokenInfoLinks.length === 0) {
-        console.warn('No test.html links found');
+        console.warn('No tokeninfo links found');
         return;
     }
     
-    console.log(`Found ${tokenInfoLinks.length} test.html link(s)`);
+    console.log(`Found ${tokenInfoLinks.length} tokeninfo link(s)`);
     
     // Get all sections that should slide out
     const sectionsToSlide = [
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // CRITICAL: Get the original href with hash
         const targetHref = e.currentTarget.getAttribute('href');
-        console.log(`test.html link clicked: ${targetHref} - starting slide out animation`);
+        console.log(`tokeninfo link clicked: ${targetHref} - starting slide out animation`);
         
         // Close any open dropdowns
         document.querySelectorAll('.dropdown').forEach(dropdown => {
@@ -59,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 600);
     }
     
-    // Add click event listener to ALL test.html links
+    // Add click event listener to ALL tokeninfo links
     tokenInfoLinks.forEach((link, index) => {
         const linkHref = link.getAttribute('href');
-        console.log(`Setting up listener for test.html link ${index + 1}: ${linkHref}`);
+        console.log(`Setting up listener for tokeninfo link ${index + 1}: ${linkHref}`);
         link.addEventListener('click', triggerSlideOut);
         
         // Add hover effect

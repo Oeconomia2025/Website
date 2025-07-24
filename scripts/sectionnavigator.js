@@ -1,34 +1,71 @@
-// Section navigation functionality
+// Section navigation functionality for about.html
 class SectionNavigator {
     constructor() {
-        // Updated to match your ACTUAL section IDs in the HTML
-        this.sections = ['home', 'features', 'products', 'blockchain-networks', 'roadmap-section','tokenomics','how-to-buy','cta', 'footer']; 
+        // Only sections that exist in about.html
+        this.sections = ['home', 'tokenomics', 'how-to-buy', 'roadmap-section', 'footer']; 
         this.currentSectionIndex = 0;
-        this.prevBtn = document.getElementById('prevSectionBtn');
-        this.nextBtn = document.getElementById('nextSectionBtn');
+        this.prevBtn = null;
+        this.nextBtn = null;
         this.isScrolling = false;
+        this.initialized = false;
 
         this.init();
     }
 
     init() {
-        // Check if buttons exist before proceeding
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.setup());
+        } else {
+            // DOM is already loaded, but wait a bit for other scripts
+            setTimeout(() => this.setup(), 100);
+        }
+    }
+
+    setup() {
+        // Find navigation buttons
+        this.prevBtn = document.getElementById('prevSectionBtn');
+        this.nextBtn = document.getElementById('nextSectionBtn');
+
+        // Check if buttons exist
         if (!this.prevBtn || !this.nextBtn) {
             console.error('Section navigation buttons not found in DOM');
+            // Try again after a delay in case they're created later
+            setTimeout(() => this.setup(), 500);
             return;
         }
 
-        // Show buttons after a delay
+        console.log('About page section navigator buttons found, initializing...');
+
+        // Filter sections to only include ones that actually exist
+        this.sections = this.sections.filter(sectionId => {
+            const exists = document.getElementById(sectionId) !== null;
+            if (!exists) {
+                console.warn(`Section ${sectionId} not found in DOM`);
+            }
+            return exists;
+        });
+
+        console.log('Active sections for about page:', this.sections);
+
+        // Show buttons after a brief delay
         setTimeout(() => {
             this.prevBtn.classList.add('show');
             this.nextBtn.classList.add('show');
         }, 1000);
 
         // Add event listeners for navigation buttons
-        this.prevBtn.addEventListener('click', () => this.navigateToSection('prev'));
-        this.nextBtn.addEventListener('click', () => this.navigateToSection('next'));
+        this.prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.navigateToSection('prev');
+        });
 
-        // UNIFIED SMOOTH SCROLLING - Handle both navbar and section navigation
+        this.nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.navigateToSection('next');
+        });
+
+        // Setup smooth scrolling for navbar links
         this.setupSmoothScrolling();
 
         // Update current section on scroll with throttling
@@ -38,49 +75,59 @@ class SectionNavigator {
                 clearTimeout(scrollTimeout);
             }
             scrollTimeout = setTimeout(() => {
-                this.updateCurrentSection();
+                if (!this.isScrolling) {
+                    this.updateCurrentSection();
+                }
             }, 100);
         });
 
         // Initial state - detect current section on load
         setTimeout(() => {
             this.updateCurrentSection();
+            this.initialized = true;
         }, 500);
+
+        console.log('About page section navigator initialized successfully');
     }
 
-    // Unified smooth scrolling for both navbar links and section navigation
+    // Setup smooth scrolling for navbar links
     setupSmoothScrolling() {
         // Handle all anchor links with smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetId = anchor.getAttribute('href').substring(1);
+                
+                // Skip empty links
+                if (!targetId) return;
+                
+                console.log('Navbar click on about page:', targetId);
                 this.smoothScrollToTarget(targetId);
             });
         });
     }
 
-    // Unified smooth scroll function used by both navbar and section navigation
+    // Smooth scroll function
     smoothScrollToTarget(targetId) {
         const targetSection = document.getElementById(targetId);
-        if (!targetSection) return;
+        if (!targetSection) {
+            console.warn(`Target section ${targetId} not found`);
+            return;
+        }
 
+        console.log('Scrolling to:', targetId);
         this.isScrolling = true;
 
-        // Different offsets for different sections
-        const sectionOffsets = {
-            'home': 100,              // No offset for hero section
-            'features': 20,        // Medium offset for features
-            'products': 20,        // More offset for products
-            'blockchain-networks': 5,        // More offset for products
-            'roadmap-section': -20, // Less offset for roadmap
-            'tokenomics': 30, // Less offset for roadmap
-            'how-to-buy': 50, // Less offset for roadmap
-            'cta': 20,            // Less offset for CTA
-            'footer': 0            // Most offset for footer
-        };
+        // Section-specific offsets for about page
+const sectionOffsets = {
+    'home': 0,           // Scroll all the way to top
+    'tokenomics': -2,      // Better positioning for tokenomics
+    'how-to-buy': 24,       // Adjust for navbar
+    'roadmap-section': 20,          // roadmap-section staRs the same
+    'footer': 0             // Footer stays the same
+};
 
-        const scrollOffset = sectionOffsets[targetId] || -20; // Default offset
+        const scrollOffset = sectionOffsets[targetId] || 0; // Default offset
         const targetPosition = targetSection.offsetTop - scrollOffset;
 
         window.scrollTo({
@@ -102,9 +149,9 @@ class SectionNavigator {
     }
 
     updateCurrentSection() {
-        if (this.isScrolling) return;
+        if (this.isScrolling || !this.initialized) return;
 
-        const scrollPosition = window.scrollY + 200; // Offset for better detection
+        const scrollPosition = window.scrollY + 150; // Offset for better detection
         let newIndex = 0;
         
         for (let i = 0; i < this.sections.length; i++) {
@@ -136,33 +183,34 @@ class SectionNavigator {
         }
 
         if (targetIndex !== this.currentSectionIndex) {
+            console.log(`Navigating ${direction} to section:`, this.sections[targetIndex]);
             this.scrollToSection(targetIndex);
         }
     }
 
     scrollToSection(index) {
+        if (index < 0 || index >= this.sections.length) return;
+
         this.isScrolling = true;
         this.currentSectionIndex = index;
         
         const targetSection = document.getElementById(this.sections[index]);
         if (targetSection) {
-            // Different offsets for different sections
-            const sectionOffsets = {
-                'home': 100,              // No offset for hero section
-                'features': 20,        // Medium offset for features
-                'products': 20,        // More offset for products
-                'blockchain-networks': 5,        // More offset for products
-                'roadmap-section': -20, // Less offset for roadmap
-                'tokenomics': 30, // Less offset for roadmap
-                'how-to-buy': 50, // Less offset for roadmap
-                'cta': 20,            // Less offset for CTA
-                'footer': 0            // Most offset for footer
-            };
+            // Section-specific offsets for about page
+const sectionOffsets = {
+    'home': 0,           // Scroll all the way to top
+    'tokenomics': -2,      // Better positioning for tokenomics
+    'how-to-buy': 24,       // Adjust for navbar
+    'roadmap-section': 20,         // roadmap-section staRs the same
+    'footer': 0             // Footer stays the same    
+};
             
             const sectionName = this.sections[index];
-            const scrollOffset = sectionOffsets[sectionName] || -20; // Default to -20
+            const scrollOffset = sectionOffsets[sectionName] || 80; // Default to 80
             
             const targetPosition = targetSection.offsetTop - scrollOffset;
+            
+            console.log(`Scrolling to section ${sectionName} at position ${targetPosition}`);
             
             window.scrollTo({
                 top: targetPosition,
@@ -177,6 +225,8 @@ class SectionNavigator {
     }
 
     updateButtons() {
+        if (!this.prevBtn || !this.nextBtn) return;
+
         // Update previous button
         if (this.currentSectionIndex === 0) {
             this.prevBtn.disabled = true;
@@ -195,26 +245,44 @@ class SectionNavigator {
             this.nextBtn.style.opacity = '1';
         }
 
-        // Add visual feedback
+        // Update tooltips
         this.prevBtn.title = this.currentSectionIndex > 0 
-            ? `Previous: ${this.sections[this.currentSectionIndex - 1].charAt(0).toUpperCase() + this.sections[this.currentSectionIndex - 1].slice(1)}`
+            ? `Previous: ${this.formatSectionName(this.sections[this.currentSectionIndex - 1])}`
             : 'At top';
         
         this.nextBtn.title = this.currentSectionIndex < this.sections.length - 1
-            ? `Next: ${this.sections[this.currentSectionIndex + 1].charAt(0).toUpperCase() + this.sections[this.currentSectionIndex + 1].slice(1)}`
+            ? `Next: ${this.formatSectionName(this.sections[this.currentSectionIndex + 1])}`
             : 'At bottom';
 
-        // Debug logging - remove this after testing
         console.log('Current section:', this.sections[this.currentSectionIndex], 'Index:', this.currentSectionIndex);
+    }
+
+    formatSectionName(sectionId) {
+        // Convert section ID to readable name for about page
+        const names = {
+            'home': 'Home',
+            'tokenomics': 'Tokenomics',
+            'how-to-buy': 'How to Buy',
+            'footer': 'Footer',
+            'roadmap-section': 'Roadmap-section'
+     };
+        return names[sectionId] || sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
     }
 }
 
-// Initialize section navigator when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new SectionNavigator();
-});
+// Initialize section navigator 
+let sectionNavigator;
 
-// Keep your existing functions
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        sectionNavigator = new SectionNavigator();
+    });
+} else {
+    sectionNavigator = new SectionNavigator();
+}
+
+// Keep existing functions for compatibility
 function launchDApp() {
     showNotification('Launching DApp interface...', 'info');
     setTimeout(() => {
@@ -227,6 +295,8 @@ let isWalletConnected = false;
 
 function connectWallet() {
     const button = document.querySelector('.connect-btn');
+    
+    if (!button) return; // Button doesn't exist on this page
     
     if (isWalletConnected) {
         disconnectWallet();
@@ -247,6 +317,8 @@ function connectWallet() {
 
 function disconnectWallet() {
     const button = document.querySelector('.connect-btn');
+    if (!button) return;
+    
     button.textContent = 'Disconnecting';
     button.style.opacity = '0.7';
     
@@ -263,6 +335,59 @@ function signUp() {
     showNotification('Opening registration form...', 'info');
 }
 
+// Functions specific to about page
+function copyTokenomicsContract() {
+    const contractAddress = '0x742d35Cc6634C0532925a3b8D4C';
+    
+    // Try to copy to clipboard
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(contractAddress).then(() => {
+            showNotification('Contract address copied to clipboard!', 'success');
+        }).catch(() => {
+            // Fallback method
+            fallbackCopyTextToClipboard(contractAddress);
+        });
+    } else {
+        // Fallback method for older browsers
+        fallbackCopyTextToClipboard(contractAddress);
+    }
+}
+
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.position = 'fixed';
+    
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            showNotification('Contract address copied to clipboard!', 'success');
+        } else {
+            showNotification('Failed to copy contract address', 'error');
+        }
+    } catch (err) {
+        showNotification('Failed to copy contract address', 'error');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+function scrollToHowToBuySection() {
+    const howToBuySection = document.getElementById('how-to-buy');
+    if (howToBuySection) {
+        howToBuySection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
 // Notification system
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
@@ -270,7 +395,9 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 100px;
         right: 20px;
-        background: ${type === 'success' ? 'linear-gradient(45deg, #00ff88, #00d4ff)' : 'linear-gradient(45deg, #00d4ff, #ff00ff)'};
+        background: ${type === 'success' ? 'linear-gradient(45deg, #00ff88, #00d4ff)' : 
+                    type === 'error' ? 'linear-gradient(45deg, #ff4757, #ff6b7a)' : 
+                    'linear-gradient(45deg, #00d4ff, #ff00ff)'};
         color: white;
         padding: 15px 25px;
         border-radius: 10px;
@@ -279,6 +406,8 @@ function showNotification(message, type = 'info') {
         transform: translateX(100%);
         transition: transform 0.3s ease;
         font-weight: bold;
+        max-width: 300px;
+        word-wrap: break-word;
     `;
     notification.textContent = message;
     document.body.appendChild(notification);
@@ -286,6 +415,10 @@ function showNotification(message, type = 'info') {
     setTimeout(() => notification.style.transform = 'translateX(0)', 100);
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
-        setTimeout(() => document.body.removeChild(notification), 300);
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
     }, 3000);
 }

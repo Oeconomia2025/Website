@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OECONOMIA</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/OEC%20Logo%20Square.png"
+    />
+
+    <!-- Your existing stylesheets -->
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/accordion.css" />
+    <link rel="stylesheet" href="styles/roadmap.css" />
+    <link rel="stylesheet" href="styles/sectionnavigator.css" />
+    <link rel="stylesheet" href="styles/tokenomics2.css" />
+
+    <!-- NEW: Section Navigation CSS -->
+    <link rel="stylesheet" href="styles/section-navigation.css" />
+    <link rel="stylesheet" href="styles/slide-in-effect.css" />
+
+    <!-- External dependencies -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Syne:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Three.js and other scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/geometries/RoundedBoxGeometry.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    <style>
+      /* Navigation Integration Styles */
+      body {
+        padding-top: 28px; /* Space for both navigation bars */
+      }
+
+      /* Adjust section scroll margin for both navbars */
+      section {
+        scroll-margin-top: 40px;
+      }
+
+      /* Position section nav below original nav */
+      .section-nav {
+        top: 80px; /* Position below original nav */
+      }
+
+      /* Make sections full height and properly spaced */
+      #tokenomics,
+      #how-to-buy,
+      #roadmap-section {
+        min-height: 100vh;
+        position: relative;
+      }
+
+      /* Ensure proper spacing between sections */
+      .section-spacing {
+        margin-bottom: 2rem;
+      }
+
+      /* Hide section nav on very small screens to avoid conflicts */
+      @media (max-width: 480px) {
+        .section-nav {
+          display: none;
+        }
+
+        body {
+          padding-top: 80px; /* Only original nav */
+        }
+
+        section {
+          scroll-margin-top: 80px;
+        }
+      }
+
+      /* Ensure Three.js background works properly */
+      #threejs-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      /* Updated Hero Content Styles */
+      .hero-content {
+        position: relative;
+        z-index: 2;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 60vh;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .hero-left {
+        padding: 10px;
+        flex: 1;
+        text-align: center;
+        max-width: 1000px;
+        height: 390px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0px 0px 5px rgba(0, 200, 255, 0.6);
+        border-radius: 10px;
+        transform: translateZ(0); /* Force hardware acceleration */
+        will-change: backdrop-filter; /* Hint to browser */
+        isolation: isolate; /* Create new stacking context */
+      }
+
+      /* Keep content above blur layer */
+      .hero-left > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-left h1 {
+        margin-bottom: 0;
+      }
+
+      .hero-right {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+
+        gap: 1rem;
+        margin-left: 1rem;
+        backdrop-filter: blur(20px);
+      }
+
+      .left-inside-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        font-size: clamp(4rem, 12vw, 8rem);
+        margin-bottom: clamp(0.5rem, 2vw, 1.5rem);
+        background: linear-gradient(45deg, #00d4ff, #ff00ff, #00ff88);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: textGlow 2s ease-in-out infinite alternate;
+        font-weight: bold;
+        /* Prevent text from being too small on very small screens */
+        min-height: 1rem;
+        backdrop-filter: blur(12px);
+        transform: translateZ(0); /* Force hardware acceleration */
+        will-change: backdrop-filter; /* Hint to browser */
+        isolation: isolate; /* Create new stacking context */
+      }
+
+      .left-inside-container > div {
+        background: linear-gradient(135deg, #667eea55 0%, #764ba256 100%);
+        width: 24%;
+        text-align: center;
+        line-height: 135px;
+        font-size: 30px;
+        border-radius: 10px;
+        margin-bottom: 10px; /* Add some spacing between rows */
+      }
+
+      body.slide-in-complete .hero-left,
+      body.slide-in-complete .left-inside-container {
+        will-change: auto;
+      }
+
+      /* Mobile responsiveness: 2 rows of 2 */
+      @media (max-width: 768px) {
+        .left-inside-container > div {
+          width: 48%; /* Two items per row with some spacing */
+          line-height: 80px; /* Smaller line height for mobile */
+          font-size: 24px; /* Smaller font for mobile */
+        }
+      }
+
+      @media (max-width: 480px) {
+        .left-inside-container > div {
+          width: 47%; /* Slightly narrower for very small screens */
+          line-height: 60px; /* Even smaller for very small screens */
+          font-size: 20px; /* Smaller font for very small screens */
+        }
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-uniswap,
+      .btn-coinmarketcap,
+      .btn-etherscan,
+      .btn-dexscreener {
+        padding: 33px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-align: center;
+        min-width: 180px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+
+      .btn-uniswap {
+        background: linear-gradient(135deg, #ff007a 0%, #ff4081 100%);
+        color: white;
+      }
+
+      .btn-uniswap:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 0, 122, 0.3);
+      }
+
+      .btn-coinmarketcap {
+        background: linear-gradient(135deg, #17d4fe 0%, #1e90ff 100%);
+        color: white;
+      }
+
+      .btn-coinmarketcap:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(23, 212, 254, 0.3);
+      }
+
+      .btn-etherscan {
+        background: linear-gradient(135deg, #a98b07 0%, #c4b402 100%);
+        color: white;
+      }
+
+      .btn-etherscan:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 0, 122, 0.3);
+      }
+
+      .btn-dexscreener {
+        background: linear-gradient(135deg, #17d4fe 0%, #1e90ff 100%);
+        color: white;
+      }
+
+      .btn-dexscreener:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(23, 212, 254, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .hero-content {
+          flex-direction: column;
+          text-align: center;
+          gap: 2rem;
+        }
+
+        .hero-left {
+          text-align: center;
+          max-width: 100%;
+        }
+
+        .hero-right {
+          margin-left: 0;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-uniswap,
+        .btn-coinmarketcap,
+        .btn-etherscan,
+        .btn-dexscreener {
+          min-width: 250px;
+        }
+      }
+
+      /* Make sure sections are visible above background */
+      .tokenomics-section,
+      .how-to-buy-section,
+      .roadmap-section {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Three.js Background -->
+    <div id="threejs-background"></div>
+
+    <!-- Original Navigation -->
+    <nav>
+      <div class="nav-content">
+        <img
+          src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/OEC%20Logo.png"
+          alt="Oeconomia Logo"
+          class="logo"
+        />
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a href="#home" class="nav-link" data-section="home">
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#tokenomics" class="nav-link" data-section="tokenomics">
+              <span>Tokenomics</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#how-to-buy" class="nav-link" data-section="how-to-buy">
+              <span>How to Buy</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#roadmap-section" class="nav-link" data-section="roadmap">
+              <span>Roadmap</span>
+            </a>
+          </li>
+
+          <li class="dropdown" id="moreDropdown">
+            <a href="#footer">More</a>
+            <div class="dropdown-content">
+              <div class="dropdown-layout">
+                <!-- UPDATED: Static preview now clickable -->
+                <div class="dropdown-static-preview">
+                  <a href="#footer" class="dropdown-static-preview-link">
+                    <img
+                      src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/DB%20Wave.png"
+                      alt="Resources Preview"
+                      class="static-preview-image"
+                    />
+                    <div class="static-preview-title">Resources</div>
+                    <div class="static-preview-description">
+                      Documentation, guides, and essential information.
+                    </div>
+                  </a>
+                </div>
+                <!-- Menu items on the right -->
+                <div class="dropdown-menu">
+                  <a href="content/more/documentation.html">
+                    <i class="fas fa-solid fa-file dropdown-icon"></i>
+                    Documentation
+                  </a>
+                  <a href="content/more/privacypolicy.html">
+                    <i class="fas fa-solid fa-shield-halved dropdown-icon"></i>
+                    Privacy Policy
+                  </a>
+                  <a href="content/more/flowcharts.html">
+                    <i class="fas fa-solid fa-briefcase dropdown-icon"></i>
+                    Flow Charts
+                  </a>
+                  <a href="content/more/tokenomics.html">
+                    <i class="fas fa-solid fa-coins dropdown-icon"></i>
+                    Tokenomics
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <span style="color: rgb(0, 204, 255); font-weight: bold"
+                >Main Site</span
+              >
+            </a>
+          </li>
+        </ul>
+        <div class="nav-buttons">
+          <a href="">
+            <button class="dapp-btn" onclick="launchDApp()">Launch DApp</button>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Section Navigation -->
+    <!-- Home Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-left">
+          <h1>OECONOMIA</h1>
+          <h2>Token Information</h2>
+          <div class="left-inside-container">
+            <div>SWAP</div>
+            <div>LEND</div>
+
+            <div>FARM</div>
+            <div>BUILD</div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <a
+            href="https://app.uniswap.org/#/swap?outputCurrency=0x742d35Cc6634C0532925a3b8D4C"
+            target="_blank"
+            rel="noopener"
+            class="btn-uniswap"
+          >
+            Buy on Uniswap
+          </a>
+          <a
+            href="https://coinmarketcap.com/"
+            target="_blank"
+            rel="noopener"
+            class="btn-coinmarketcap"
+          >
+            View on CoinMarketCap
+          </a>
+          <a
+            href="https://app.uniswap.org/#/swap?outputCurrency=0x742d35Cc6634C0532925a3b8D4C"
+            target="_blank"
+            rel="noopener"
+            class="btn-dexscreener"
+          >
+            Verify on Etherscan
+          </a>
+          <a
+            href="https://coinmarketcap.com/"
+            target="_blank"
+            rel="noopener"
+            class="btn-etherscan"
+          >
+            Chart on DexScreener
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: Tokenomics -->
+    <section class="tokenomics-section section-spacing" id="tokenomics">
+      <!-- Video Background -->
+      <video
+        class="tokenomics-video-background"
+        autoplay
+        muted
+        loop
+        playsinline
+      >
+        <source
+          src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/shutterstock_3611241669.mov"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="tokenomics-container">
+        <div class="tokenomics-wrapper">
+          <div class="tokenomics-header">
+            <h1>TOKENOMICS</h1>
+            <p>Transparent Distribution & Sustainable Economy</p>
+          </div>
+
+          <div class="tokenomics-main-content">
+            <div class="tokenomics-stats-grid">
+              <div class="tokenomics-stat-card">
+                <div class="tokenomics-stat-value">100M</div>
+                <div class="tokenomics-stat-label">Total Supply</div>
+              </div>
+              <div class="tokenomics-stat-card">
+                <div class="tokenomics-stat-value">60%</div>
+                <div class="tokenomics-stat-label">Public Allocation</div>
+              </div>
+              <div class="tokenomics-stat-card">
+                <div class="tokenomics-stat-value">5%</div>
+                <div class="tokenomics-stat-label">Transaction Fee</div>
+              </div>
+              <div class="tokenomics-stat-card">
+                <div class="tokenomics-stat-value">7</div>
+                <div class="tokenomics-stat-label">Categories</div>
+              </div>
+            </div>
+
+            <div class="tokenomics-stats-grid">
+              <div class="tokenomics-stat-card">
+                <div class="tokenomics-stat-value">OEC</div>
+                <div class="tokenomics-stat-label">Ticker</div>
+              </div>
+              <div class="tokenomics-stat-card">
+                <div class="tokenomics-stat-value">ERC-20</div>
+                <div class="tokenomics-stat-label">Standard & 18 Decimals</div>
+              </div>
+              <div class="tokenomics-stat-card">
+                <div
+                  class="tokenomics-contract-address"
+                  onclick="copyTokenomicsContract()"
+                  title="Click to copy"
+                >
+                  0x
+                </div>
+                <div class="tokenomics-stat-label">Contract Address</div>
+              </div>
+              <div class="tokenomics-stat-card">
+                <button
+                  class="tokenomics-buy-button"
+                  onclick="scrollToHowToBuySection()"
+                >
+                  How to Buy
+                </button>
+                <div class="tokenomics-stat-label">Purchase Guide</div>
+              </div>
+            </div>
+
+            <div class="tokenomics-chart-section">
+              <h2 class="tokenomics-chart-title">Token Distribution</h2>
+              <div class="tokenomics-chart-container">
+                <canvas id="tokenomicsDistributionChart"></canvas>
+              </div>
+            </div>
+
+            <div class="tokenomics-chart-section">
+              <h2 class="tokenomics-chart-title">Fee Structure</h2>
+              <div class="tokenomics-chart-container">
+                <canvas id="tokenomicsFeesChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="tokenomics-breakdown-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Allocation</th>
+                  <th>Tokens</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span
+                      class="tokenomics-allocation-color"
+                      style="background-color: #ff6384"
+                    ></span>
+                    Public
+                  </td>
+                  <td>Community</td>
+                  <td>60,000,000</td>
+                  <td>60%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="tokenomics-allocation-color"
+                      style="background-color: #36a2eb"
+                    ></span>
+                    Listing Purposes
+                  </td>
+                  <td>Exchange Listings</td>
+                  <td>20,000,000</td>
+                  <td>20%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="tokenomics-allocation-color"
+                      style="background-color: #ffce56"
+                    ></span>
+                    Marketing
+                  </td>
+                  <td>Growth & Promotion</td>
+                  <td>10,000,000</td>
+                  <td>10%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="tokenomics-allocation-color"
+                      style="background-color: #4bc0c0"
+                    ></span>
+                    Treasury
+                  </td>
+                  <td>Initial Reserve</td>
+                  <td>5,000,000</td>
+                  <td>5%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="tokenomics-allocation-color"
+                      style="background-color: #9966ff"
+                    ></span>
+                    Lead Dev (Locked)
+                  </td>
+                  <td>Development Team</td>
+                  <td>2,000,000</td>
+                  <td>2%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="tokenomics-allocation-color"
+                      style="background-color: #ff9f40"
+                    ></span>
+                    Future Team
+                  </td>
+                  <td>Team Expansion</td>
+                  <td>2,000,000</td>
+                  <td>2%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span
+                      class="tokenomics-allocation-color"
+                      style="background-color: #ff6b9d"
+                    ></span>
+                    Lead Dev (Public)
+                  </td>
+                  <td>Development Wallet</td>
+                  <td>1,000,000</td>
+                  <td>1%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: How to Buy -->
+    <section class="how-to-buy-section section-spacing" id="how-to-buy">
+      <div class="tokenomics-container">
+        <h2 class="how-to-buy-title">How to Buy OEC Token</h2>
+
+        <div class="how-to-buy-steps-grid">
+          <div class="how-to-buy-step-card">
+            <h3 class="how-to-buy-step-title">
+              <div class="how-to-buy-step-number">1</div>
+              &nbsp;Set Up Your Wallet
+            </h3>
+            <p class="how-to-buy-step-description">
+              Download and install a compatible crypto wallet that supports
+              ERC-20 tokens. We recommend MetaMask for beginners or Trust Wallet
+              for mobile users.
+            </p>
+            <div class="how-to-buy-step-links">
+              <a
+                href="https://metamask.io"
+                class="how-to-buy-step-link"
+                target="_blank"
+                >MetaMask</a
+              >
+              <a
+                href="https://trustwallet.com"
+                class="how-to-buy-step-link"
+                target="_blank"
+                >Trust Wallet</a
+              >
+            </div>
+          </div>
+
+          <div class="how-to-buy-step-card">
+            <h3 class="how-to-buy-step-title">
+              <div class="how-to-buy-step-number">2</div>
+              &nbsp;Get Ethereum (ETH)
+            </h3>
+            <p class="how-to-buy-step-description">
+              Purchase Ethereum from a reputable exchange like Coinbase,
+              Binance, or Kraken. You'll need ETH to pay for gas fees and to
+              swap for OEC tokens.
+            </p>
+            <div class="how-to-buy-step-links">
+              <a
+                href="https://coinbase.com"
+                class="how-to-buy-step-link"
+                target="_blank"
+                >Coinbase</a
+              >
+              <a
+                href="https://binance.com"
+                class="how-to-buy-step-link"
+                target="_blank"
+                >Binance</a
+              >
+              <a
+                href="https://kraken.com"
+                class="how-to-buy-step-link"
+                target="_blank"
+                >Kraken</a
+              >
+            </div>
+          </div>
+
+          <div class="how-to-buy-step-card">
+            <h3 class="how-to-buy-step-title">
+              <div class="how-to-buy-step-number">3</div>
+              &nbsp;Connect to DEX
+            </h3>
+            <p class="how-to-buy-step-description">
+              Connect your wallet to a decentralized exchange (DEX) such as
+              Uniswap or SushiSwap. Make sure you're on the official website to
+              avoid scams.
+            </p>
+            <div class="how-to-buy-step-links">
+              <a
+                href="https://app.uniswap.org"
+                class="how-to-buy-step-link"
+                target="_blank"
+                >Uniswap</a
+              >
+              <a
+                href="https://sushi.com"
+                class="how-to-buy-step-link"
+                target="_blank"
+                >SushiSwap</a
+              >
+            </div>
+          </div>
+
+          <div class="how-to-buy-step-card">
+            <h3 class="how-to-buy-step-title">
+              <div class="how-to-buy-step-number">4</div>
+              &nbsp;Add Token Contract
+            </h3>
+            <p class="how-to-buy-step-description">
+              Add OEC token to your swap interface using our contract address.
+              Always verify the contract address matches exactly to avoid fake
+              tokens.
+            </p>
+            <div class="how-to-buy-step-links">
+              <button
+                class="how-to-buy-copy-contract"
+                onclick="copyTokenomicsContract()"
+              >
+                Copy Contract
+              </button>
+            </div>
+          </div>
+
+          <div class="how-to-buy-step-card">
+            <h3 class="how-to-buy-step-title">
+              <div class="how-to-buy-step-number">5</div>
+              &nbsp;Swap ETH for OEC
+            </h3>
+            <p class="how-to-buy-step-description">
+              Enter the amount of ETH you want to swap for OEC tokens. Review
+              the transaction details, including gas fees, before confirming the
+              swap.
+            </p>
+          </div>
+
+          <div class="how-to-buy-step-card">
+            <h3 class="how-to-buy-step-title">
+              <div class="how-to-buy-step-number">6</div>
+              &nbsp;Confirm & Hold
+            </h3>
+            <p class="how-to-buy-step-description">
+              Confirm the transaction in your wallet and wait for it to be
+              processed on the blockchain. Your OEC tokens will appear in your
+              wallet once confirmed.
+            </p>
+          </div>
+        </div>
+
+        <div class="how-to-buy-warning-section">
+          <h3 class="how-to-buy-warning-title">⚠️ Important Safety Tips</h3>
+          <div class="how-to-buy-warning-text">
+            • Always double-check contract addresses to avoid fake tokens<br />
+            • Never share your private keys or seed phrase with anyone<br />
+            • Start with small amounts to test the process<br />
+            • Be aware of gas fees, especially during network congestion<br />
+            • Only use official websites and verified links
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Roadmap -->
+    <section class="roadmap-section section-spacing" id="roadmap-section">
+      <!-- Content will be dynamically loaded by roadmap.js -->
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <div class="footer-logo">
+              <div class="logo">Oeconomia</div>
+              <p>
+                A trusted platform for digital asset management and DeFi
+                solutions.
+              </p>
+              <div class="social-links">
+                <a href="#" aria-label="Telegram">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://x.com/Oeconomia2025"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="X"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 512 512"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://medium.com/@oeconomia2025"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Medium"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 800 512"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M180.5,74.262C80.813,74.262,0,155.633,0,256S80.819,437.738,180.5,437.738,361,356.373,361,256,280.191,74.262,180.5,74.262Zm288.25,10.646c-49.845,0-90.245,76.619-90.245,171.095s40.406,171.1,90.251,171.1,90.251-76.619,90.251-171.1H559C559,161.5,518.6,84.908,468.752,84.908Zm139.506,17.821c-17.526,0-31.735,68.628-31.735,153.274s14.2,153.274,31.735,153.274S640,340.631,640,256C640,171.351,625.785,102.729,608.258,102.729Z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.youtube.com/@Oeconomia2025"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="YouTube"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 576 512"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://discord.gg/XSgZgeVD"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Discord"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189Z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/Oeconomia2025"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="GitHub"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h3>ServiceStack</h3>
+            <ul>
+              <li>
+                <a href="content/placeholder.html" rel="noopener"
+                  >Swap/Bridge</a
+                >
+              </li>
+              <li>
+                <a href="content/placeholder.html" rel="noopener">Liquidity</a>
+              </li>
+              <li>
+                <a href="content/placeholder.html" rel="noopener">Lending</a>
+              </li>
+              <li>
+                <a href="content/placeholder.html" rel="noopener"
+                  >NFT Marketplace</a
+                >
+              </li>
+              <li>
+                <a href="content/placeholder.html" rel="noopener"
+                  >Contract Creator</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Governance</h3>
+            <ul>
+              <li><a href="content/more/governanceguide.html">Gov Guide</a></li>
+              <li>
+                <a href="content/more/forum.html" target="_blank" rel="noopener"
+                  >Forum</a
+                >
+              </li>
+              <li><a href="#">Platform</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Community</h3>
+            <ul>
+              <li>
+                <a
+                  href="https://github.com/Oeconomia2025"
+                  target="_blank"
+                  rel="noopener"
+                  >GitHub</a
+                >
+              </li>
+              <li><a href="#">Media Kit</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Documentation</h3>
+            <ul>
+              <li>
+                <a href="content/more/documentation.html">Documentation</a>
+              </li>
+              <li>
+                <a href="content/more/privacypolicy.html">Privacy Notice</a>
+              </li>
+              <li><a href="content/more/flowcharts.html">Flow Charts</a></li>
+              <li><a href="content/more/tokenomics.html">Tokenomics</a></li>
+            </ul>
+            <div class="newsletter">
+              <h4>Contact Us</h4>
+              <div class="newsletter-form">
+                <a href="content/more/contact.html" target="_blank">
+                  <button type="submit">Send eMail</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-bottom-content">
+            <p>&copy; 2025 Oeconomia. All rights reserved.</p>
+            <div class="footer-badges">
+              <span class="badge">🔐 Non-Custodial</span>
+              <span class="badge">🛡️ No KYC Required</span>
+              <span class="badge">💎 Immutable Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Section Navigation Buttons -->
+    <div class="section-nav-buttons">
+      <button
+        class="section-nav-btn"
+        id="prevSectionBtn"
+        title="Previous Section"
+      >
+        <i class="fas fa-chevron-up"></i>
+      </button>
+      <button class="section-nav-btn" id="nextSectionBtn" title="Next Section">
+        <i class="fas fa-chevron-down"></i>
+      </button>
+    </div>
+
+    <!-- JavaScript Files -->
+
+    <script src="scripts/sectionnavigator.js"></script>
+    <script src="scripts/background.js"></script>
+    <script src="scripts/sidebar.js"></script>
+    <script src="scripts/features.js"></script>
+    <script src="scripts/blockchainnetworks.js"></script>
+    <script src="scripts/cta.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/products-animation.js"></script>
+    <script src="scripts/roadmap.js"></script>
+    <script src="scripts/cube-manager.js"></script>
+    <script src="scripts/accordion.js"></script>
+    <script src="scripts/blockchain-animation.js"></script>
+    <script src="scripts/tokenomics2.js"></script>
+
+    <!-- NEW: Section Navigation JavaScript -->
+    <script src="scripts/section-navigation.js"></script>
+
+    <!-- Initialization Scripts -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Setting up home scroll override...");
+
+        // Wait for all other scripts to load
+        setTimeout(function () {
+          // Override ALL home navigation clicks with force
+          function forceHomeScroll(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation(); // Stop all other event handlers
+
+            console.log("FORCING scroll to absolute top");
+
+            // Force scroll to absolute top (0,0)
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth",
+            });
+
+            return false;
+          }
+
+          // Apply to all possible home links
+          const homeSelectors = [
+            'a[href="#home"]',
+            'a[data-section="home"]',
+            '.nav-link[data-section="home"]',
+            'a[href="#"]:contains("Home")',
+            ".nav-item a:first-child", // Assuming home is first nav item
+          ];
+
+          homeSelectors.forEach((selector) => {
+            document.querySelectorAll(selector).forEach((link) => {
+              // Remove existing event listeners and add our override
+              link.onclick = forceHomeScroll;
+              link.addEventListener("click", forceHomeScroll, true); // Use capture
+            });
+          });
+
+          // Also override the section navigator if it exists
+          if (window.sectionNavigator) {
+            const originalSmooth = window.sectionNavigator.smoothScrollToTarget;
+            const originalScroll = window.sectionNavigator.scrollToSection;
+
+            window.sectionNavigator.smoothScrollToTarget = function (targetId) {
+              if (targetId === "home") {
+                console.log("Navigator override: scrolling to top");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                return;
+              }
+              if (originalSmooth) originalSmooth.call(this, targetId);
+            };
+
+            window.sectionNavigator.scrollToSection = function (index) {
+              if (index === 0 || this.sections[index] === "home") {
+                console.log("Navigator override: scrolling to top via index");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                return;
+              }
+              if (originalScroll) originalScroll.call(this, index);
+            };
+          }
+
+          // Force scroll to top on page load if we're at home
+          if (window.location.hash === "" || window.location.hash === "#home") {
+            setTimeout(() => window.scrollTo(0, 0), 200);
+          }
+
+          console.log("Home scroll override complete");
+        }, 1500); // Wait longer for other scripts
+      });
+    </script>
+    <script src="scripts/slide-in-effect.js"></script>
+  </body>
+</html>

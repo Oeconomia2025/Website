@@ -1,0 +1,189 @@
+/* Fixed Slide-In Continuation Effect for test.html */
+
+/* CRITICAL: Hide all content off-screen to the RIGHT initially */
+nav,
+.hero,
+.tokenomics-section,
+.how-to-buy-section,
+.roadmap-section,
+.footer,
+#threejs-background {
+    transform: translateX(100vw) !important; /* Start from RIGHT */
+    opacity: 0 !important;
+    /* Apply immediately - no dependency on JavaScript classes */
+}
+
+/* Force elements to start from the right even with direct section navigation */
+body:not(.slide-in-active) nav,
+body:not(.slide-in-active) .hero,
+body:not(.slide-in-active) .tokenomics-section,
+body:not(.slide-in-active) .how-to-buy-section,
+body:not(.slide-in-active) .roadmap-section,
+body:not(.slide-in-active) .footer,
+body:not(.slide-in-active) #threejs-background {
+    transform: translateX(100vw) !important; /* Ensure they start from RIGHT */
+    opacity: 0 !important;
+}
+
+/* Transition properties for smooth slide-in FROM RIGHT */
+nav {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                opacity 0.6s ease;
+    will-change: transform, opacity;
+}
+
+.hero {
+    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s, 
+                opacity 0.7s ease 0.1s;
+    will-change: transform, opacity;
+}
+
+.tokenomics-section {
+    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s, 
+                opacity 0.7s ease 0.1s;
+    will-change: transform, opacity;
+}
+
+.how-to-buy-section {
+    transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s, 
+                opacity 0.9s ease 0.3s;
+    will-change: transform, opacity;
+}
+
+.roadmap-section {
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, 
+                opacity 1.0s ease 0.4s;
+    will-change: transform, opacity;
+}
+
+#threejs-background {
+    transition: transform 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s, 
+                opacity 0.8s ease 0.1s;
+    will-change: transform, opacity;
+}
+
+.footer {
+    transform: translateX(100vw) !important; /* Footer also slides from right */
+    opacity: 0;
+    transition: transform 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s, 
+                opacity 0.8s ease 0.6s;
+}
+
+/* Final positions when sliding in - triggered by JavaScript */
+body.slide-in-active nav,
+body.slide-in-active .hero,
+body.slide-in-active .tokenomics-section,
+body.slide-in-active .how-to-buy-section,
+body.slide-in-active .roadmap-section,
+body.slide-in-active #threejs-background,
+body.slide-in-active .footer {
+    transform: translateX(0) !important; /* Slide TO final position */
+    opacity: 1 !important;
+}
+
+/* Prevent scroll until animation starts */
+body:not(.slide-in-active) {
+    overflow: hidden;
+}
+
+/* Re-enable scroll after animation */
+body.slide-in-active {
+    overflow: auto;
+}
+
+/* Handle direct section navigation - ensure elements come from right */
+body.direct-section-nav nav,
+body.direct-section-nav .hero,
+body.direct-section-nav .tokenomics-section,
+body.direct-section-nav .how-to-buy-section,
+body.direct-section-nav .roadmap-section,
+body.direct-section-nav #threejs-background,
+body.direct-section-nav .footer {
+    transform: translateX(100vw) !important; /* Force from right */
+    opacity: 0 !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    /* Ensure mobile devices also start hidden to the RIGHT */
+    nav,
+    .hero,
+    .tokenomics-section,
+    .how-to-buy-section,
+    .roadmap-section,
+    .footer,
+    #threejs-background {
+        transform: translateX(100vw) !important; /* Start from RIGHT on mobile */
+    }
+    
+    /* Faster animations on mobile */
+    nav { 
+        transition-duration: 0.6s, 0.4s; 
+    }
+    .hero { 
+        transition-duration: 0.7s, 0.5s; 
+    }
+    .tokenomics-section { 
+        transition-duration: 0.8s, 0.6s; 
+    }
+    .how-to-buy-section { 
+        transition-duration: 0.9s, 0.7s; 
+    }
+    .roadmap-section { 
+        transition-duration: 1.0s, 0.8s; 
+    }
+    .footer {
+        transition-duration: 0.8s, 0.6s;
+    }
+}
+
+/* Performance optimizations */
+body.slide-in-active .hero {
+    transform: translateX(0) !important;
+}
+
+body.slide-in-active .hero-left {
+    transform: translateZ(0); /* Hardware acceleration trigger */
+    will-change: auto; /* Reset will-change after animation */
+}
+
+/* Ensure backdrop filters work properly during animation */
+.hero-left,
+.left-inside-container {
+    backface-visibility: hidden; /* Prevent flicker during animation */
+    transform-style: preserve-3d; /* Maintain 3D context */
+}
+
+/* Reset will-change after animations complete */
+body.slide-in-complete nav,
+body.slide-in-complete .hero,
+body.slide-in-complete .tokenomics-section,
+body.slide-in-complete .how-to-buy-section,
+body.slide-in-complete .roadmap-section,
+body.slide-in-complete #threejs-background,
+body.slide-in-complete .footer {
+    will-change: auto;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    nav,
+    .hero,
+    .tokenomics-section,
+    .how-to-buy-section,
+    .roadmap-section,
+    #threejs-background,
+    .footer {
+        transition-duration: 0.5s, 0.2s;
+    }
+}
+
+/* Add this to slide-in-effect.css */
+body.direct-hash-nav .hero,
+body.direct-hash-nav .tokenomics-section,
+body.direct-hash-nav .how-to-buy-section,
+body.direct-hash-nav .roadmap-section {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                opacity 0.6s ease;
+    will-change: transform, opacity;
+}

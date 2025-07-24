@@ -8,19 +8,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OECONOMIA</title>
-    <link rel="icon" type="image/x-icon" href="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/OEC%20Logo%20Square.png">
 
+    <link rel="icon" type="image/png" href="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/OEC%20Logo%20Square.png">
+    <link rel="apple-touch-icon" href="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/OEC%20Logo%20Square.png">
     <link rel="stylesheet" href="styles/styles.css" />
     <link rel="stylesheet" href="styles/accordion.css" />
     <link rel="stylesheet" href="styles/accordion-cube.css" />
-    <link rel="stylesheet" href="styles/sidebar.css" />
-    <link rel="stylesheet" href="styles/roadmap.css" />
-    <link rel="stylesheet" href="styles/sectionnavigator.css" />
+    <link rel="stylesheet" href="styles/sectionnavigator2.css" />
     <link rel="stylesheet" href="styles/features.css" />
     <link rel="stylesheet" href="styles/blockchainnetworks.css" />
     <link rel="stylesheet" href="styles/products-animation.css" />
     <link rel="stylesheet" href="styles/cta.css" />
-    <link rel="stylesheet" href="styles/tokenomics2.css" />
     <link rel="stylesheet" href="styles/slide-out-effect.css" />
     <link
       rel="stylesheet"
@@ -36,11 +34,11 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/geometries/RoundedBoxGeometry.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
-
   </head>
   <body>
     <div id="threejs-background"></div>
-    <script src="scripts/sectionnavigator.js"></script>
+
+    <script src="scripts/sectionnavigator2.js"></script>
     <script src="scripts/background.js"></script>
     <script src="scripts/sidebar.js"></script>
     <script src="scripts/features.js"></script>
@@ -63,48 +61,6 @@
           <li><a href="#blockchain-networks">Networks</a></li>
 
 <li class="dropdown" id="insightsDropdown">
-  <a href="#roadmap-section">About</a>
-  <div class="dropdown-content">
-    <div class="dropdown-layout">
-      <!-- UPDATED: Static preview now clickable -->
-      <div class="dropdown-static-preview">
-        <a href="#roadmap-section" class="dropdown-static-preview-link">
-          <img src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/DB%20Curve.png" alt="Insights Preview" class="static-preview-image">
-          <div class="static-preview-title">About</div>
-          <div class="static-preview-description">
-            Roadmaps and future plans.
-          </div>
-        </a>
-      </div>
-      
-      <!-- Menu items on the right -->
-      <div class="dropdown-menu">
-        <a href="#roadmap-section">
-          <i class="fas fa-solid fa-road-circle-check dropdown-icon"></i>
-          General Map
-        </a>
-        <a href="#tokenomics">
-          <i class="fas fa-solid fa-coins dropdown-icon"></i>
-          Tokenomics
-        </a>
-        <a href="#how-to-buy">
-          <i class="fa-solid fa-layer-group dropdown-icon"></i>
-          How to Buy
-        </a>
-        <a href="content/more/forum">
-          <i class="fa-solid fa-layer-group dropdown-icon"></i>
-          Interactive Map
-        </a>
-
-      </div>
-    </div>
-  </div>
-</li>
-
-
-
-<!-- Updated Insights Dropdown with clickable static preview -->
-<li class="dropdown" id="insightsDropdown">
   <a href="#cta">Insights</a>
   <div class="dropdown-content">
     <div class="dropdown-layout">
@@ -114,7 +70,7 @@
           <img src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/DB%20Line.png" alt="Insights Preview" class="static-preview-image">
           <div class="static-preview-title">Insights Hub</div>
           <div class="static-preview-description">
-            Access comprehensive reports, community discussions, and live statistics all in one place.
+            Comprehensive reports, community discussions, and live stats.
           </div>
         </a>
       </div>
@@ -138,9 +94,6 @@
   </div>
 </li>
 
-
-
-<!-- Updated More Dropdown with clickable static preview -->
 <li class="dropdown" id="moreDropdown">
   <a href="#footer">More</a>
   <div class="dropdown-content">
@@ -151,13 +104,10 @@
           <img src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/DB%20Wave.png" alt="Resources Preview" class="static-preview-image">
           <div class="static-preview-title">Resources</div>
           <div class="static-preview-description">
-            Documentation, guides, and essential information for developers and users.
+            Documentation, guides, and essential information.
           </div>
         </a>
       </div>
-      
-
-      
       <!-- Menu items on the right -->
       <div class="dropdown-menu">
         <a href="content/more/documentation">
@@ -181,10 +131,48 @@
   </div>
 </li>
 
-
-
-
-
+<li class="dropdown" id="about">
+  <a href="tokeninfo" style="color: rgb(0, 204, 255); font-weight: bold">Token Info</a>
+  <div class="dropdown-content">
+    <div class="dropdown-layout">
+      <!-- UPDATED: Static preview now clickable -->
+      <div class="dropdown-static-preview">
+        <a href="tokeninfo" class="dropdown-static-preview-link">
+          <img src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/DB%20Curve.png" alt="Insights Preview" class="static-preview-image">
+          <div class="static-preview-title">About</div>
+          <div class="static-preview-description">
+            Roadmaps and future plans.
+          </div>
+        </a>
+      </div>
+      
+      <!-- Menu items on the right -->
+      <div class="dropdown-menu">
+        <a href="tokeninfo#home">
+          <i class="fas fa-solid fa-road-circle-check dropdown-icon"></i>
+          General Map
+        </a>
+        <a href="tokeninfo#tokenomics">
+          <i class="fas fa-solid fa-coins dropdown-icon"></i>
+          Tokenomics
+        </a>
+        <a href="tokeninfo#how-to-buy">
+          <i class="fa-solid fa-layer-group dropdown-icon"></i>
+          How to Buy
+        </a>
+        <a href="tokeninfo#roadmap-section">
+          <i class="fa-solid fa-layer-group dropdown-icon"></i>
+          Roadmap
+        </a>
+<!--        <a href="">
+          <i class="fa-solid fa-layer-group dropdown-icon"></i>
+          Interactive Map
+        </a>
+      -->
+      </div>
+    </div>
+  </div>
+</li>
         </ul>
         <div class="nav-buttons">
           <a href="">
@@ -200,7 +188,6 @@
     </nav>
 
     <!-- Hero Section -->
-
     <section class="hero" id="home">
       <div class="container">
         <div class="hero-content">
@@ -687,251 +674,8 @@
       </div>
     </section>
 
-<!-- Tokenomics Section -->
-<section class="tokenomics-section" id="tokenomics">
-  <!-- Video Background -->
-  <video class="tokenomics-video-background" autoplay muted loop playsinline>
-    <source src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/shutterstock_3611241669.mov" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  
-  <div class="tokenomics-container">
-    <div class="tokenomics-wrapper">
-      <div class="tokenomics-header">
-        <h1>TOKENOMICS</h1>
-        <p>Transparent Distribution & Sustainable Economy</p>
-      </div>
-
-      <div class="tokenomics-main-content">
-        <div class="tokenomics-stats-grid">
-          <div class="tokenomics-stat-card">
-            <div class="tokenomics-stat-value">100M</div>
-            <div class="tokenomics-stat-label">Total Supply</div>
-          </div>
-          <div class="tokenomics-stat-card">
-            <div class="tokenomics-stat-value">60%</div>
-            <div class="tokenomics-stat-label">Public Allocation</div>
-          </div>
-          <div class="tokenomics-stat-card">
-            <div class="tokenomics-stat-value">5%</div>
-            <div class="tokenomics-stat-label">Transaction Fee</div>
-          </div>
-          <div class="tokenomics-stat-card">
-            <div class="tokenomics-stat-value">7</div>
-            <div class="tokenomics-stat-label">Categories</div>
-          </div>
-        </div>
-
-        <div class="tokenomics-stats-grid">
-          <div class="tokenomics-stat-card">
-            <div class="tokenomics-stat-value">OEC</div>
-            <div class="tokenomics-stat-label">Ticker</div>
-          </div>
-          <div class="tokenomics-stat-card">
-            <div class="tokenomics-stat-value">ERC-20</div>
-            <div class="tokenomics-stat-label">Standard & 18 Decimals</div>
-          </div>
-          <div class="tokenomics-stat-card">
-            <div class="tokenomics-contract-address" onclick="copyTokenomicsContract()" title="Click to copy">0x742d35Cc6634C0532925a3b8D4C</div>
-            <div class="tokenomics-stat-label">Contract Address</div>
-          </div>
-          <div class="tokenomics-stat-card">
-            <button class="tokenomics-buy-button" onclick="scrollToHowToBuySection()">How to Buy</button>
-            <div class="tokenomics-stat-label">Purchase Guide</div>
-          </div>
-        </div>
-
-        <div class="tokenomics-chart-section">
-          <h2 class="tokenomics-chart-title">Token Distribution</h2>
-          <div class="tokenomics-chart-container">
-            <canvas id="tokenomicsDistributionChart"></canvas>
-          </div>
-        </div>
-
-        <div class="tokenomics-chart-section">
-          <h2 class="tokenomics-chart-title">Fee Structure</h2>
-          <div class="tokenomics-chart-container">
-            <canvas id="tokenomicsFeesChart"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <div class="tokenomics-breakdown-table">
-
-        <table>
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Allocation</th>
-              <th>Tokens</th>
-              <th>Percentage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <span class="tokenomics-allocation-color" style="background-color: #ff6384"></span>
-                Public
-              </td>
-              <td>Community</td>
-              <td>60,000,000</td>
-              <td>60%</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="tokenomics-allocation-color" style="background-color: #36a2eb"></span>
-                Listing Purposes
-              </td>
-              <td>Exchange Listings</td>
-              <td>20,000,000</td>
-              <td>20%</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="tokenomics-allocation-color" style="background-color: #ffce56"></span>
-                Marketing
-              </td>
-              <td>Growth & Promotion</td>
-              <td>10,000,000</td>
-              <td>10%</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="tokenomics-allocation-color" style="background-color: #4bc0c0"></span>
-                Treasury
-              </td>
-              <td>Initial Reserve</td>
-              <td>5,000,000</td>
-              <td>5%</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="tokenomics-allocation-color" style="background-color: #9966ff"></span>
-                Lead Dev (Locked)
-              </td>
-              <td>Development Team</td>
-              <td>2,000,000</td>
-              <td>2%</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="tokenomics-allocation-color" style="background-color: #ff9f40"></span>
-                Future Team
-              </td>
-              <td>Team Expansion</td>
-              <td>2,000,000</td>
-              <td>2%</td>
-            </tr>
-            <tr>
-              <td>
-                <span class="tokenomics-allocation-color" style="background-color: #ff6b9d"></span>
-                Lead Dev (Public)
-              </td>
-              <td>Development Wallet</td>
-              <td>1,000,000</td>
-              <td>1%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- How to Buy Section -->
-<section class="how-to-buy-section" id="how-to-buy">
-  <div class="tokenomics-container">
-    <h2 class="how-to-buy-title">How to Buy OEC Token</h2>
-    
-    <div class="how-to-buy-steps-grid">
-      <div class="how-to-buy-step-card">
-        <h3 class="how-to-buy-step-title">
-          <div class="how-to-buy-step-number">1</div>&nbsp;Set Up Your Wallet
-        </h3>
-        <p class="how-to-buy-step-description">
-          Download and install a compatible crypto wallet that supports ERC-20 tokens. We recommend MetaMask for beginners or Trust Wallet for mobile users.
-        </p>
-        <div class="how-to-buy-step-links">
-          <a href="https://metamask.io" class="how-to-buy-step-link" target="_blank">MetaMask</a>
-          <a href="https://trustwallet.com" class="how-to-buy-step-link" target="_blank">Trust Wallet</a>
-        </div>
-      </div>
-
-      <div class="how-to-buy-step-card">
-        <h3 class="how-to-buy-step-title">
-          <div class="how-to-buy-step-number">2</div>&nbsp;Get Ethereum (ETH)
-        </h3>
-        <p class="how-to-buy-step-description">
-          Purchase Ethereum from a reputable exchange like Coinbase, Binance, or Kraken. You'll need ETH to pay for gas fees and to swap for OEC tokens.
-        </p>
-        <div class="how-to-buy-step-links">
-          <a href="https://coinbase.com" class="how-to-buy-step-link" target="_blank">Coinbase</a>
-          <a href="https://binance.com" class="how-to-buy-step-link" target="_blank">Binance</a>
-          <a href="https://kraken.com" class="how-to-buy-step-link" target="_blank">Kraken</a>
-        </div>
-      </div>
-
-      <div class="how-to-buy-step-card">
-        <h3 class="how-to-buy-step-title">
-          <div class="how-to-buy-step-number">3</div>&nbsp;Connect to DEX
-        </h3>
-        <p class="how-to-buy-step-description">
-          Connect your wallet to a decentralized exchange (DEX) such as Uniswap or SushiSwap. Make sure you're on the official website to avoid scams.
-        </p>
-        <div class="how-to-buy-step-links">
-          <a href="https://app.uniswap.org" class="how-to-buy-step-link" target="_blank">Uniswap</a>
-          <a href="https://sushi.com" class="how-to-buy-step-link" target="_blank">SushiSwap</a>
-        </div>
-      </div>
-
-      <div class="how-to-buy-step-card">
-        <h3 class="how-to-buy-step-title">
-          <div class="how-to-buy-step-number">4</div>&nbsp;Add Token Contract
-        </h3>
-        <p class="how-to-buy-step-description">
-          Add OEC token to your swap interface using our contract address. Always verify the contract address matches exactly to avoid fake tokens.
-        </p>
-        <div class="how-to-buy-step-links">
-          <button class="how-to-buy-copy-contract" onclick="copyTokenomicsContract()">Copy Contract</button>
-        </div>
-      </div>
-
-      <div class="how-to-buy-step-card">
-        <h3 class="how-to-buy-step-title">
-          <div class="how-to-buy-step-number">5</div>&nbsp;Swap ETH for OEC
-        </h3>
-        <p class="how-to-buy-step-description">
-          Enter the amount of ETH you want to swap for OEC tokens. Review the transaction details, including gas fees, before confirming the swap.
-        </p>
-      </div>
-
-      <div class="how-to-buy-step-card">
-        <h3 class="how-to-buy-step-title">
-          <div class="how-to-buy-step-number">6</div>&nbsp;Confirm & Hold
-        </h3>
-        <p class="how-to-buy-step-description">
-          Confirm the transaction in your wallet and wait for it to be processed on the blockchain. Your OEC tokens will appear in your wallet once confirmed.
-        </p>
-      </div>
-    </div>
-
-    <div class="how-to-buy-warning-section">
-      <h3 class="how-to-buy-warning-title">⚠️ Important Safety Tips</h3>
-      <div class="how-to-buy-warning-text">
-        • Always double-check contract addresses to avoid fake tokens<br>
-        • Never share your private keys or seed phrase with anyone<br>
-        • Start with small amounts to test the process<br>
-        • Be aware of gas fees, especially during network congestion<br>
-        • Only use official websites and verified links
-      </div>
-    </div>
-
-
-  </div>
-</section>
-    
-<!-- CTA Section -->
-<section class="cta" id="cta">
+    <!-- CTA Section -->
+    <section class="cta" id="cta">
   <!-- Animated Background -->
   <div class="animated-background"></div>
       <!-- Feature Cards Grid -->
@@ -1043,7 +787,7 @@
     
     </div>
   </div>
-</section>
+    </section>
 
     <!-- Footer -->
     <footer class="footer" id="footer">
@@ -1169,7 +913,7 @@
     <button id="scrollToTopBtn" class="scroll-top-btn">↑</button>
 
     <script>
-      // Add this script right above the existing script tag
+
       document.addEventListener("DOMContentLoaded", function () {
         const scrollBtn = document.getElementById("scrollToTopBtn");
 
@@ -1195,7 +939,6 @@
     <script src="scripts/script.js"></script>
     <script src="scripts/products-animation.js"></script>
   
-    <script src="scripts/roadmap.js"></script>
     <!-- Section Navigation Buttons -->
     <div class="section-nav-buttons">
       <button
@@ -1209,12 +952,256 @@
         <i class="fas fa-chevron-down"></i>
       </button>
     </div>
-
+    
 <script src="scripts/cube-manager.js"></script>
 <script src="scripts/accordion.js"></script>
 <script src="scripts/blockchain-animation.js"></script>
-<script src="scripts/tokenomics2.js"></script>
 <script src="scripts/slide-out-effect.js"></script>
+<script>
+// Override the scroll behavior
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for other scripts to load
+    setTimeout(function() {
+        // Override all home navigation clicks
+        document.querySelectorAll('a[href="#home"], a[data-section="home"]').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Force scroll to absolute top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                console.log('Forced scroll to top');
+            });
+        });
+        
+        // Also override any existing section navigator
+        if (window.sectionNavigator && window.sectionNavigator.smoothScrollToTarget) {
+            const originalFunction = window.sectionNavigator.smoothScrollToTarget;
+            window.sectionNavigator.smoothScrollToTarget = function(targetId) {
+                if (targetId === 'home') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+                // Call original function for other sections
+                originalFunction.call(this, targetId);
+            };
+        }
+    }, 1000);
+});
+</script>
+
+<script>
+        // OEC Coin Stats Sidebar Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('oec-stats-sidebar');
+    let isHidden = false;
+    
+    // Mock data for dynamic updates
+    const mockData = {
+        price: { min: 20.00, max: 30.00, current: 24.87 },
+        change: { min: -15, max: 20, current: 12.4 },
+        tvl: { min: 800, max: 900, current: 847.2 },
+        supply: { min: 150, max: 160, current: 158.7 },
+        rewards: { min: 10, max: 15, current: 12.8 },
+        marketcap: { min: 3.5, max: 4.2, current: 3.95 }
+    };
+    
+    // Scroll handler for sidebar visibility
+    function handleScroll() {
+        const scrollPosition = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        const shouldHide = scrollPosition > (window.innerHeight * 0.1); // 10vh
+        
+        if (shouldHide && !isHidden) {
+            sidebar.classList.add('hidden');
+            isHidden = true;
+        } else if (!shouldHide && isHidden) {
+            sidebar.classList.remove('hidden');
+            isHidden = false;
+        }
+    }
+    
+    // Add scroll event listener with throttling
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(handleScroll, 10);
+    });
+    
+    // Function to generate random price movement
+    function generateRandomChange(current, min, max, volatility = 0.02) {
+        const change = (Math.random() - 0.5) * volatility * current;
+        const newValue = current + change;
+        return Math.max(min, Math.min(max, newValue));
+    }
+    
+    // Function to format numbers
+    function formatNumber(num, decimals = 2, suffix = '') {
+        if (num >= 1000000000) {
+            return (num / 1000000000).toFixed(1) + 'B' + suffix;
+        } else if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M' + suffix;
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K' + suffix;
+        }
+        return num.toFixed(decimals) + suffix;
+    }
+    
+    // Function to update stats with animation
+    function updateStats() {
+        // Update price
+        mockData.price.current = generateRandomChange(
+            mockData.price.current, 
+            mockData.price.min, 
+            mockData.price.max
+        );
+        
+        // Update 24h change
+        mockData.change.current = generateRandomChange(
+            mockData.change.current, 
+            mockData.change.min, 
+            mockData.change.max, 
+            0.1
+        );
+        
+        // Update TVL
+        mockData.tvl.current = generateRandomChange(
+            mockData.tvl.current, 
+            mockData.tvl.min, 
+            mockData.tvl.max, 
+            0.005
+        );
+        
+        // Update supply (minimal changes)
+        mockData.supply.current = generateRandomChange(
+            mockData.supply.current, 
+            mockData.supply.min, 
+            mockData.supply.max, 
+            0.001
+        );
+        
+        // Update rewards
+        mockData.rewards.current = generateRandomChange(
+            mockData.rewards.current, 
+            mockData.rewards.min, 
+            mockData.rewards.max, 
+            0.01
+        );
+        
+        // Calculate market cap
+        mockData.marketcap.current = (mockData.price.current * mockData.supply.current) / 1000;
+        
+        // Update DOM elements
+        document.getElementById('oec-price').textContent = '$' + mockData.price.current.toFixed(2);
+        
+        const changeElement = document.getElementById('oec-change');
+        const changeValue = mockData.change.current;
+        changeElement.textContent = (changeValue > 0 ? '+' : '') + changeValue.toFixed(1) + '%';
+        changeElement.className = 'oec-stat-value ' + (changeValue > 0 ? 'oec-positive' : 'oec-negative');
+        
+        document.getElementById('oec-tvl').textContent = '$' + formatNumber(mockData.tvl.current * 1000000);
+        document.getElementById('oec-supply').textContent = formatNumber(mockData.supply.current * 1000000, 1, ' OEC');
+        document.getElementById('oec-rewards').textContent = '$' + formatNumber(mockData.rewards.current * 1000000);
+        document.getElementById('oec-marketcap').textContent = '$' + formatNumber(mockData.marketcap.current * 1000000000);
+    }
+    
+    // Function to add subtle animation to stat updates
+    function animateStatUpdate(elementId) {
+        const element = document.getElementById(elementId);
+        element.style.transform = 'scale(1.05)';
+        element.style.color = '#00d4ff';
+        
+        setTimeout(() => {
+            element.style.transform = 'scale(1)';
+            element.style.color = '';
+        }, 200);
+    }
+    
+    // Enhanced update function with animations
+    function updateStatsWithAnimation() {
+        updateStats();
+        
+        // Randomly animate some stats
+        const statIds = ['oec-price', 'oec-change', 'oec-tvl', 'oec-supply', 'oec-rewards', 'oec-marketcap'];
+        const randomStat = statIds[Math.floor(Math.random() * statIds.length)];
+        animateStatUpdate(randomStat);
+    }
+    
+    // Initial stats update
+    updateStats();
+    
+    // Update stats every 3 seconds
+    setInterval(updateStatsWithAnimation, 3000);
+    
+    // Add click interaction for manual refresh
+    sidebar.addEventListener('click', function(e) {
+        if (e.target.closest('.oec-sidebar-header')) {
+            updateStatsWithAnimation();
+            
+            // Visual feedback
+            const logo = document.querySelector('.oec-logo-circle');
+            logo.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                logo.style.transform = 'rotate(0deg)';
+            }, 500);
+        }
+    });
+    
+    // Add hover effects for individual stats
+    document.querySelectorAll('.oec-stat-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.background = 'rgba(0, 212, 255, 0.05)';
+            this.style.borderRadius = '8px';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.background = '';
+            this.style.borderRadius = '';
+        });
+    });
+    
+    // Performance optimization: pause updates when sidebar is hidden
+    let updateInterval;
+    
+    function startUpdates() {
+        updateInterval = setInterval(updateStatsWithAnimation, 3000);
+    }
+    
+    function stopUpdates() {
+        if (updateInterval) {
+            clearInterval(updateInterval);
+        }
+    }
+    
+    // Monitor visibility changes
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                if (sidebar.classList.contains('hidden')) {
+                    stopUpdates();
+                } else {
+                    startUpdates();
+                }
+            }
+        });
+    });
+    
+    observer.observe(sidebar, { attributes: true });
+    
+    // Start the updates
+    startUpdates();
+});
+
+</script>
 
   </body>
 </html>

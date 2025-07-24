@@ -1,97 +1,215 @@
-/* Slide Out Effect Styles */
+/* Enhanced Slide Out Effect Styles with Fade */
 .slide-out-container {
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
 }
 
 .slide-out-left {
-    transform: translateX(-100vw);
+  transform: translateX(-100vw);
+  opacity: 0;
 }
 
-/* Individual section animations with stagger effect */
+/* Individual section animations with stagger effect and fade */
 .hero {
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
 }
 
 .features {
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
-    will-change: transform;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s,
+              opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+  will-change: transform, opacity;
 }
 
 .products {
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
-    will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s,
+              opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  will-change: transform, opacity;
 }
 
 .blockchain-networks {
-    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
-    will-change: transform;
+  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s,
+              opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+  will-change: transform, opacity;
 }
 
 .cta {
-    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
-    will-change: transform;
+  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s,
+              opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
+  will-change: transform, opacity;
 }
 
-/* Apply slide out to individual sections */
+/* Apply slide out and fade to individual sections */
 .hero.slide-out-left,
 .features.slide-out-left,
 .products.slide-out-left,
 .blockchain-networks.slide-out-left,
 .cta.slide-out-left {
-    transform: translateX(-100vw);
+  transform: translateX(-100vw);
+  opacity: 0;
 }
 
-/* Navigation animation */
+/* Navigation animation with fade */
 nav {
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
 }
 
 nav.slide-out-left {
-    transform: translateX(-100vw);
+  transform: translateX(-100vw);
+  opacity: 0;
 }
 
+/* Loading overlay for smooth transition */
+.slide-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
 
+.slide-transition-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
 
+/* Fancy loading animation */
+.slide-transition-overlay::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #00d4ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
 
+.slide-transition-overlay::after {
+  content: "Transitioning to Token Info...";
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  font-family: "Syne", sans-serif;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 
 /* Ensure footer stays in place */
 .footer {
-    position: relative;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.9);
-    transition: none !important;
-    transform: none !important;
+  position: relative;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.9);
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 /* Prevent scroll during animation */
 body.slide-out-active {
-    overflow: hidden;
+  overflow: hidden;
 }
 
-/* Three.js background animation */
+/* Three.js background animation with fade */
 #threejs-background {
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
 }
 
 #threejs-background.slide-out-left {
-    transform: translateX(-50vw);
+  transform: translateX(-50vw);
+  opacity: 0;
+}
+
+/* Alternative fade-first effect (optional) */
+.fade-first .hero,
+.fade-first .features,
+.fade-first .products,
+.fade-first .blockchain-networks,
+.fade-first .cta,
+.fade-first nav,
+.fade-first #threejs-background {
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+}
+
+/* Smooth fade-slide combination with different timing */
+.smooth-combo .hero {
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+}
+
+.smooth-combo .features {
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s;
+}
+
+.smooth-combo .products {
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s,
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+}
+
+.smooth-combo .blockchain-networks {
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s,
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s;
+}
+
+.smooth-combo .cta {
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s,
+              transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-    .hero,
-    .features,
-    .products,
-    .blockchain-networks,
-    .cta {
-        transition-duration: 0.4s, 0.5s, 0.6s, 0.7s, 0.8s;
-    }
-    
-    .slide-transition-overlay::after {
-        font-size: 16px;
-        padding: 0 20px;
-    }
+  .hero,
+  .features,
+  .products,
+  .blockchain-networks,
+  .cta {
+    transition-duration: 0.4s, 0.4s, 0.5s, 0.5s, 0.6s, 0.6s, 0.7s, 0.7s, 0.8s, 0.8s;
+  }
+  
+  .slide-transition-overlay::after {
+    font-size: 16px;
+    padding: 0 20px;
+  }
+}
+
+/* Performance optimization */
+@media (prefers-reduced-motion: reduce) {
+  .slide-out-container,
+  .hero,
+  .features,
+  .products,
+  .blockchain-networks,
+  .cta,
+  nav,
+  #threejs-background {
+    transition-duration: 0.4s;
+  }
 }

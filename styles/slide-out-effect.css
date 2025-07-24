@@ -1,0 +1,97 @@
+/* Slide Out Effect Styles */
+.slide-out-container {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.slide-out-left {
+    transform: translateX(-100vw);
+}
+
+/* Individual section animations with stagger effect */
+.hero {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.features {
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+    will-change: transform;
+}
+
+.products {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+    will-change: transform;
+}
+
+.blockchain-networks {
+    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+    will-change: transform;
+}
+
+.cta {
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
+    will-change: transform;
+}
+
+/* Apply slide out to individual sections */
+.hero.slide-out-left,
+.features.slide-out-left,
+.products.slide-out-left,
+.blockchain-networks.slide-out-left,
+.cta.slide-out-left {
+    transform: translateX(-100vw);
+}
+
+/* Navigation animation */
+nav {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+nav.slide-out-left {
+    transform: translateX(-100vw);
+}
+
+
+
+
+
+/* Ensure footer stays in place */
+.footer {
+    position: relative;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.9);
+    transition: none !important;
+    transform: none !important;
+}
+
+/* Prevent scroll during animation */
+body.slide-out-active {
+    overflow: hidden;
+}
+
+/* Three.js background animation */
+#threejs-background {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#threejs-background.slide-out-left {
+    transform: translateX(-50vw);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .hero,
+    .features,
+    .products,
+    .blockchain-networks,
+    .cta {
+        transition-duration: 0.4s, 0.5s, 0.6s, 0.7s, 0.8s;
+    }
+    
+    .slide-transition-overlay::after {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+}

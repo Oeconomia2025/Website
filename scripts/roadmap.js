@@ -22,7 +22,7 @@ class RoadmapRenderer {
   async loadRoadmapData() {
     try {
       // Fetch data from the JSON file
-      const response = await fetch('./roadmap.json');
+      const response = await fetch('../json/roadmap.json');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

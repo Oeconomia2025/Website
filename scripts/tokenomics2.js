@@ -82,7 +82,7 @@ function initializeTokenomicsCharts() {
             "#4BC0C0",
             "#9966FF",
             "#FF9F40",
-            "#FF6B9D",
+            "#ffffffff",
           ],
           hoverBackgroundColor: [
             "#FF8FA3",
@@ -91,7 +91,7 @@ function initializeTokenomicsCharts() {
             "#6DD6D6",
             "#B085FF",
             "#FFB85F",
-            "#FF8BB3",
+            "#ffffffff",
           ],
           cutout: "70%",
           borderWidth: 0,

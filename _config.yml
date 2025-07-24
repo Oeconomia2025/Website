@@ -1,0 +1,4 @@
+plugins:
+  - jekyll-optional-front-matter
+
+permalink: pretty

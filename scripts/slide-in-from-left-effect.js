@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if we're coming from tokeninfo page
     const slideFromLeft = sessionStorage.getItem('slideFromLeft');
     const cameFromTokenInfo = document.referrer.includes('test.html') || 
-                             document.referrer.includes('tokeninfo.html') ||
+                             document.referrer.includes('tokeninfo') ||
                              slideFromLeft === 'true';
     
     if (!cameFromTokenInfo) {

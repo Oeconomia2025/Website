@@ -1,4 +1,4 @@
-// SIMPLE SLIDE-IN FROM LEFT - Pure JavaScript, no CSS conflicts
+// SIMPLE SLIDE-IN FROM LEFT - Fixed to not interfere with sticky nav
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🎯 Simple slide-in from LEFT effect initialized');
     
@@ -18,27 +18,54 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear the flag
     sessionStorage.removeItem('slideFromLeft');
     
-    // Immediately position page off-screen to the LEFT
-    document.body.style.transform = 'translateX(-100vw)';
-    document.body.style.opacity = '0';
-    document.body.style.overflow = 'hidden'; // Prevent scroll during animation
+    // Create a wrapper for the animation instead of using body
+    const pageWrapper = document.createElement('div');
+    pageWrapper.id = 'page-animation-wrapper';
     
-    console.log('🎯 Page positioned off-screen LEFT');
+    // Move all body content into the wrapper
+    while (document.body.firstChild) {
+        pageWrapper.appendChild(document.body.firstChild);
+    }
+    
+    // Add wrapper to body
+    document.body.appendChild(pageWrapper);
+    
+    // Apply styles to wrapper instead of body
+    pageWrapper.style.transform = 'translateX(-100vw)';
+    pageWrapper.style.opacity = '0';
+    pageWrapper.style.width = '100%';
+    pageWrapper.style.height = '100%';
+    
+    // Prevent scroll during animation
+    document.body.style.overflow = 'hidden';
+    
+    console.log('🎯 Page positioned off-screen LEFT using wrapper');
     
     // Function to start slide-in animation from LEFT
     function startSlideInFromLeft() {
         console.log('🎬 Starting slide-in from LEFT animation');
         
         // Apply transition and slide in
-        document.body.style.transition = 'transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1s ease';
-        document.body.style.transform = 'translateX(0)'; // Slide to normal position
-        document.body.style.opacity = '1'; // Fade in
+        pageWrapper.style.transition = 'transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1s ease';
+        pageWrapper.style.transform = 'translateX(0)'; // Slide to normal position
+        pageWrapper.style.opacity = '1'; // Fade in
         
         // Clean up after animation completes
         setTimeout(() => {
-            document.body.style.transition = '';
+            // Move content back to body
+            while (pageWrapper.firstChild) {
+                document.body.appendChild(pageWrapper.firstChild);
+            }
+            
+            // Remove the wrapper
+            if (pageWrapper.parentNode) {
+                pageWrapper.parentNode.removeChild(pageWrapper);
+            }
+            
+            // Restore body overflow
             document.body.style.overflow = '';
-            console.log('✅ Slide-in from LEFT complete');
+            
+            console.log('✅ Slide-in from LEFT complete and wrapper removed');
         }, 1200);
     }
     
@@ -51,19 +78,40 @@ document.addEventListener('DOMContentLoaded', function() {
     window.testSlideInLeft = function() {
         console.log('🧪 Testing slide-in from LEFT');
         
+        // Create wrapper if it doesn't exist
+        let wrapper = document.getElementById('page-animation-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.id = 'page-animation-wrapper';
+            
+            // Move content to wrapper
+            while (document.body.firstChild) {
+                wrapper.appendChild(document.body.firstChild);
+            }
+            document.body.appendChild(wrapper);
+        }
+        
         // Reset and test
-        document.body.style.transition = '';
-        document.body.style.transform = 'translateX(-100vw)';
-        document.body.style.opacity = '0';
+        wrapper.style.transition = '';
+        wrapper.style.transform = 'translateX(-100vw)';
+        wrapper.style.opacity = '0';
+        wrapper.style.width = '100%';
+        wrapper.style.height = '100%';
         document.body.style.overflow = 'hidden';
         
         setTimeout(() => {
-            document.body.style.transition = 'transform 1s ease, opacity 1s ease';
-            document.body.style.transform = 'translateX(0)';
-            document.body.style.opacity = '1';
+            wrapper.style.transition = 'transform 1s ease, opacity 1s ease';
+            wrapper.style.transform = 'translateX(0)';
+            wrapper.style.opacity = '1';
             
             setTimeout(() => {
-                document.body.style.transition = '';
+                // Move content back
+                while (wrapper.firstChild) {
+                    document.body.appendChild(wrapper.firstChild);
+                }
+                if (wrapper.parentNode) {
+                    wrapper.parentNode.removeChild(wrapper);
+                }
                 document.body.style.overflow = '';
             }, 1200);
         }, 100);
@@ -71,10 +119,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.resetSlideInLeft = function() {
         console.log('🔄 Resetting slide-in LEFT');
-        document.body.style.transition = '';
+        
+        // Remove wrapper if it exists and move content back
+        const wrapper = document.getElementById('page-animation-wrapper');
+        if (wrapper) {
+            while (wrapper.firstChild) {
+                document.body.appendChild(wrapper.firstChild);
+            }
+            if (wrapper.parentNode) {
+                wrapper.parentNode.removeChild(wrapper);
+            }
+        }
+        
+        // Reset body styles
+        document.body.style.overflow = '';
         document.body.style.transform = '';
         document.body.style.opacity = '';
-        document.body.style.overflow = '';
+        document.body.style.transition = '';
     };
     
     console.log('🎉 Simple slide-in from LEFT ready!');
@@ -96,24 +157,52 @@ window.addEventListener('pageshow', function(event) {
             // Clear flag
             sessionStorage.removeItem('slideFromLeft');
             
-            // Reset styles
-            document.body.style.transition = '';
-            document.body.style.transform = 'translateX(-100vw)';
-            document.body.style.opacity = '0';
+            // Create wrapper
+            const pageWrapper = document.createElement('div');
+            pageWrapper.id = 'page-animation-wrapper';
+            
+            // Move content to wrapper
+            while (document.body.firstChild) {
+                pageWrapper.appendChild(document.body.firstChild);
+            }
+            document.body.appendChild(pageWrapper);
+            
+            // Apply initial styles
+            pageWrapper.style.transform = 'translateX(-100vw)';
+            pageWrapper.style.opacity = '0';
+            pageWrapper.style.width = '100%';
+            pageWrapper.style.height = '100%';
             document.body.style.overflow = 'hidden';
             
             setTimeout(() => {
-                document.body.style.transition = 'transform 1s ease, opacity 1s ease';
-                document.body.style.transform = 'translateX(0)';
-                document.body.style.opacity = '1';
+                pageWrapper.style.transition = 'transform 1s ease, opacity 1s ease';
+                pageWrapper.style.transform = 'translateX(0)';
+                pageWrapper.style.opacity = '1';
                 
                 setTimeout(() => {
-                    document.body.style.transition = '';
+                    // Clean up
+                    while (pageWrapper.firstChild) {
+                        document.body.appendChild(pageWrapper.firstChild);
+                    }
+                    if (pageWrapper.parentNode) {
+                        pageWrapper.parentNode.removeChild(pageWrapper);
+                    }
                     document.body.style.overflow = '';
                 }, 1200);
             }, 100);
         } else {
-            // Just reset any stuck styles
+            // Make sure no wrapper is lingering and reset body styles
+            const wrapper = document.getElementById('page-animation-wrapper');
+            if (wrapper) {
+                while (wrapper.firstChild) {
+                    document.body.appendChild(wrapper.firstChild);
+                }
+                if (wrapper.parentNode) {
+                    wrapper.parentNode.removeChild(wrapper);
+                }
+            }
+            
+            // Reset all body styles
             document.body.style.transition = '';
             document.body.style.transform = '';
             document.body.style.opacity = '';

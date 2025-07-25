@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     setTimeout(() => {
         // Find the Main Site link
-        let mainSiteLink = document.querySelector('a[href="index.html"]');
+        let mainSiteLink = document.querySelector('a[href="../"]');
         
         if (!mainSiteLink) {
             const allLinks = document.querySelectorAll('a');
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 console.log('🏁 Animation complete - navigating to index.html');
                 sessionStorage.setItem('slideFromLeft', 'true');
-                window.location.href = 'index.html';
+                window.location.href = '../';
             }, 1200); // Wait for slide + fade to complete
         }
         

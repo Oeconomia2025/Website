@@ -96,6 +96,45 @@
   filter: drop-shadow(0 0 15px #00ffff) drop-shadow(0 0 30px #00ffff90);
 }
 
+  fieldset {
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+legend {
+  font-weight: bold;
+  color: #00ffff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 5px #00ffff88;
+}
+
+.rating-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.rating-group label {
+  background: #121212;
+  border: 2px solid #00ffff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px #00ffff20;
+}
+
+.rating-group input[type="radio"] {
+  display: none;
+}
+
+.rating-group input[type="radio"]:checked + label,
+.rating-group label:hover {
+  background-color: #00ffff22;
+  box-shadow: 0 0 10px #00ffffaa;
+  color: #00ffff;
+}
+
 </style>
 
 </head>
@@ -108,31 +147,103 @@
 
   <h1>Oeconomia Survey</h1>
 
-  <form id="survey-form">
-    <label>
-      How did you hear about Oeconomia?<br/>
-      <input type="text" name="referral" required />
-    </label><br/><br/>
+<form id="survey-form">
+  <label>
+    Name:<br/>
+    <input type="text" name="name" placeholder="Your name" required />
+  </label><br/><br/>
 
-    <label>
-      Rate your experience from 1 to 5:<br/>
-      <select name="rating" required>
-        <option value="" disabled selected>Select rating</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    </label><br/><br/>
+  <fieldset>
+    <legend>Personal Opinion of Look</legend>
+    <div class="rating-group">
+      <label><input type="radio" name="look" value="1-2" required /> Eh, Hella Lackin</label>
+      <label><input type="radio" name="look" value="3-4" /> Ain't the worst, but…</label>
+      <label><input type="radio" name="look" value="5-6" /> It's aight</label>
+      <label><input type="radio" name="look" value="7-8" /> Niiice</label>
+      <label><input type="radio" name="look" value="9-10" /> Hella Tight</label>
+    </div>
+  </fieldset><br/>
 
-    <label>
-      Any additional feedback:<br/>
-      <textarea name="feedback" rows="4"></textarea>
-    </label><br/><br/>
+  <fieldset>
+    <legend>Feel of Navigation</legend>
+    <div class="rating-group">
+      <label><input type="radio" name="navigation" value="1-2" required /> 1–2</label>
+      <label><input type="radio" name="navigation" value="3-4" /> 3–4</label>
+      <label><input type="radio" name="navigation" value="5-6" /> 5–6</label>
+      <label><input type="radio" name="navigation" value="7-8" /> 7–8</label>
+      <label><input type="radio" name="navigation" value="9-10" /> 9–10</label>
+    </div>
+  </fieldset><br/>
 
-    <button type="submit">Submit Survey</button>
-  </form>
+  <fieldset>
+    <legend>Professional Look</legend>
+    <div class="rating-group">
+      <label><input type="radio" name="professional" value="1-2" required /> 1–2</label>
+      <label><input type="radio" name="professional" value="3-4" /> 3–4</label>
+      <label><input type="radio" name="professional" value="5-6" /> 5–6</label>
+      <label><input type="radio" name="professional" value="7-8" /> 7–8</label>
+      <label><input type="radio" name="professional" value="9-10" /> 9–10</label>
+    </div>
+  </fieldset><br/>
+
+  <fieldset>
+    <legend>Engaging or Interesting</legend>
+    <div class="rating-group">
+      <label><input type="radio" name="interesting" value="1-2" required /> 1–2</label>
+      <label><input type="radio" name="interesting" value="3-4" /> 3–4</label>
+      <label><input type="radio" name="interesting" value="5-6" /> 5–6</label>
+      <label><input type="radio" name="interesting" value="7-8" /> 7–8</label>
+      <label><input type="radio" name="interesting" value="9-10" /> 9–10</label>
+    </div>
+  </fieldset><br/>
+
+  <label>
+    What improvements do you suggest for the look and feel?<br/>
+    <textarea name="lookFeedback" rows="4"></textarea>
+  </label><br/><br/>
+
+  <fieldset>
+    <legend>Does this seem to be created by a professional in the crypto industry?</legend>
+    <div class="rating-group">
+      <label><input type="radio" name="cryptoPro" value="1-5" required /> Scammy</label>
+      <label><input type="radio" name="cryptoPro" value="6-10" /> Professional</label>
+    </div>
+  </fieldset><br/>
+
+  <fieldset>
+    <legend>Simplicity — How much simpler should this site be?</legend>
+    <div class="rating-group">
+      <label><input type="radio" name="simplicity" value="1" required /> No Change</label>
+      <label><input type="radio" name="simplicity" value="2-4" /> Not That Much Simpler</label>
+      <label><input type="radio" name="simplicity" value="5-7" /> Some Change</label>
+      <label><input type="radio" name="simplicity" value="8-10" /> Make it Hella Simpler</label>
+    </div>
+  </fieldset><br/>
+
+  <label>
+    Additional Comments?<br/>
+    <textarea name="extraFeedback" rows="4"></textarea>
+  </label><br/><br/>
+
+  <fieldset>
+    <legend>Overall Score of Website</legend>
+    <div class="rating-group">
+      <label><input type="radio" name="overall" value="1" required /> 1</label>
+      <label><input type="radio" name="overall" value="2" /> 2</label>
+      <label><input type="radio" name="overall" value="3" /> 3</label>
+      <label><input type="radio" name="overall" value="4" /> 4</label>
+      <label><input type="radio" name="overall" value="5" /> 5</label>
+      <label><input type="radio" name="overall" value="6" /> 6</label>
+      <label><input type="radio" name="overall" value="7" /> 7</label>
+      <label><input type="radio" name="overall" value="8" /> 8</label>
+      <label><input type="radio" name="overall" value="9" /> 9</label>
+      <label><input type="radio" name="overall" value="10" /> 10</label>
+    </div>
+  </fieldset><br/>
+
+  <button type="submit">Submit Survey</button>
+</form>
+
 
   <p id="status"></p>
 

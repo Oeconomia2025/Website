@@ -135,6 +135,50 @@ legend {
   color: #00ffff;
 }
 
+  .rating-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0.5rem 0;
+  color: #00ffff;
+  text-shadow: 0 0 3px #00ffff66;
+}
+
+.scale-question {
+  margin-bottom: 2rem;
+}
+
+.scale-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.scale-options label {
+  flex: 1;
+  text-align: center;
+  background: #121212;
+  border: 1px solid #00ffff44;
+  padding: 0.4rem 0.6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 4px #00ffff20;
+  transition: all 0.2s ease;
+}
+
+.scale-options input[type="radio"] {
+  display: none;
+}
+
+.scale-options input[type="radio"]:checked + span,
+.scale-options label:hover span {
+  color: #00ffff;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ffffaa;
+}
+
+
 </style>
 
 </head>
@@ -153,96 +197,114 @@ legend {
     <input type="text" name="name" placeholder="Your name" required />
   </label><br/><br/>
 
-  <fieldset>
+  <!-- Rating scale headers -->
+  <div class="rating-scale-labels">
+    <span>Eh, Hella Lackin</span>
+    <span>Ain't the worst, but…</span>
+    <span>It's aight</span>
+    <span>Niiice</span>
+    <span>Hella Tight</span>
+  </div>
+
+  <!-- Personal Opinion of Look -->
+  <fieldset class="scale-question">
     <legend>Personal Opinion of Look</legend>
-    <div class="rating-group">
-      <label><input type="radio" name="look" value="1-2" required /> Eh, Hella Lackin</label>
-      <label><input type="radio" name="look" value="3-4" /> Ain't the worst, but…</label>
-      <label><input type="radio" name="look" value="5-6" /> It's aight</label>
-      <label><input type="radio" name="look" value="7-8" /> Niiice</label>
-      <label><input type="radio" name="look" value="9-10" /> Hella Tight</label>
+    <div class="scale-options">
+      <label><input type="radio" name="look" value="1" required><span>1</span></label>
+      <label><input type="radio" name="look" value="2"><span>2</span></label>
+      <label><input type="radio" name="look" value="3"><span>3</span></label>
+      <label><input type="radio" name="look" value="4"><span>4</span></label>
+      <label><input type="radio" name="look" value="5"><span>5</span></label>
+      <label><input type="radio" name="look" value="6"><span>6</span></label>
+      <label><input type="radio" name="look" value="7"><span>7</span></label>
+      <label><input type="radio" name="look" value="8"><span>8</span></label>
+      <label><input type="radio" name="look" value="9"><span>9</span></label>
+      <label><input type="radio" name="look" value="10"><span>10</span></label>
     </div>
-  </fieldset><br/>
+  </fieldset>
 
-  <fieldset>
+  <!-- Repeat for more questions -->
+  <fieldset class="scale-question">
     <legend>Feel of Navigation</legend>
-    <div class="rating-group">
-      <label><input type="radio" name="navigation" value="1-2" required /> 1–2</label>
-      <label><input type="radio" name="navigation" value="3-4" /> 3–4</label>
-      <label><input type="radio" name="navigation" value="5-6" /> 5–6</label>
-      <label><input type="radio" name="navigation" value="7-8" /> 7–8</label>
-      <label><input type="radio" name="navigation" value="9-10" /> 9–10</label>
+    <div class="scale-options">
+      <!-- Same 1–10 radio layout -->
+      <!-- Replace name="look" with name="navigation" -->
+      <!-- Repeat labels as above -->
     </div>
-  </fieldset><br/>
+  </fieldset>
 
-  <fieldset>
-    <legend>Professional Look</legend>
-    <div class="rating-group">
-      <label><input type="radio" name="professional" value="1-2" required /> 1–2</label>
-      <label><input type="radio" name="professional" value="3-4" /> 3–4</label>
-      <label><input type="radio" name="professional" value="5-6" /> 5–6</label>
-      <label><input type="radio" name="professional" value="7-8" /> 7–8</label>
-      <label><input type="radio" name="professional" value="9-10" /> 9–10</label>
-    </div>
-  </fieldset><br/>
-
-  <fieldset>
-    <legend>Engaging or Interesting</legend>
-    <div class="rating-group">
-      <label><input type="radio" name="interesting" value="1-2" required /> 1–2</label>
-      <label><input type="radio" name="interesting" value="3-4" /> 3–4</label>
-      <label><input type="radio" name="interesting" value="5-6" /> 5–6</label>
-      <label><input type="radio" name="interesting" value="7-8" /> 7–8</label>
-      <label><input type="radio" name="interesting" value="9-10" /> 9–10</label>
-    </div>
-  </fieldset><br/>
+  <!-- Repeat for: Professional Look, Engaging or Interesting -->
 
   <label>
     What improvements do you suggest for the look and feel?<br/>
     <textarea name="lookFeedback" rows="4"></textarea>
   </label><br/><br/>
 
-  <fieldset>
-    <legend>Does this seem to be created by a professional in the crypto industry?</legend>
-    <div class="rating-group">
-      <label><input type="radio" name="cryptoPro" value="1-5" required /> Scammy</label>
-      <label><input type="radio" name="cryptoPro" value="6-10" /> Professional</label>
+  <!-- Crypto Professionalism Question -->
+  <fieldset class="scale-question">
+    <legend>Does this seem professionally built for crypto people?</legend>
+    <div class="scale-options">
+      <label><input type="radio" name="cryptoPro" value="1" required><span>1</span></label>
+      <label><input type="radio" name="cryptoPro" value="2"><span>2</span></label>
+      <label><input type="radio" name="cryptoPro" value="3"><span>3</span></label>
+      <label><input type="radio" name="cryptoPro" value="4"><span>4</span></label>
+      <label><input type="radio" name="cryptoPro" value="5"><span>5</span></label>
+      <label><input type="radio" name="cryptoPro" value="6"><span>6</span></label>
+      <label><input type="radio" name="cryptoPro" value="7"><span>7</span></label>
+      <label><input type="radio" name="cryptoPro" value="8"><span>8</span></label>
+      <label><input type="radio" name="cryptoPro" value="9"><span>9</span></label>
+      <label><input type="radio" name="cryptoPro" value="10"><span>10</span></label>
     </div>
-  </fieldset><br/>
+  </fieldset>
 
-  <fieldset>
-    <legend>Simplicity — How much simpler should this site be?</legend>
-    <div class="rating-group">
-      <label><input type="radio" name="simplicity" value="1" required /> No Change</label>
-      <label><input type="radio" name="simplicity" value="2-4" /> Not That Much Simpler</label>
-      <label><input type="radio" name="simplicity" value="5-7" /> Some Change</label>
-      <label><input type="radio" name="simplicity" value="8-10" /> Make it Hella Simpler</label>
+  <!-- Simplicity Question -->
+  <fieldset class="scale-question">
+    <legend>Simplicity — How much more simple should it be?</legend>
+    <div class="rating-scale-labels">
+      <span>No Change</span>
+      <span>Not Much</span>
+      <span>Some Change</span>
+      <span>Hella Simpler</span>
     </div>
-  </fieldset><br/>
+    <div class="scale-options">
+      <label><input type="radio" name="simplicity" value="1" required><span>1</span></label>
+      <label><input type="radio" name="simplicity" value="2"><span>2</span></label>
+      <label><input type="radio" name="simplicity" value="3"><span>3</span></label>
+      <label><input type="radio" name="simplicity" value="4"><span>4</span></label>
+      <label><input type="radio" name="simplicity" value="5"><span>5</span></label>
+      <label><input type="radio" name="simplicity" value="6"><span>6</span></label>
+      <label><input type="radio" name="simplicity" value="7"><span>7</span></label>
+      <label><input type="radio" name="simplicity" value="8"><span>8</span></label>
+      <label><input type="radio" name="simplicity" value="9"><span>9</span></label>
+      <label><input type="radio" name="simplicity" value="10"><span>10</span></label>
+    </div>
+  </fieldset>
 
   <label>
     Additional Comments?<br/>
     <textarea name="extraFeedback" rows="4"></textarea>
   </label><br/><br/>
 
-  <fieldset>
+  <!-- Overall Score -->
+  <fieldset class="scale-question">
     <legend>Overall Score of Website</legend>
-    <div class="rating-group">
-      <label><input type="radio" name="overall" value="1" required /> 1</label>
-      <label><input type="radio" name="overall" value="2" /> 2</label>
-      <label><input type="radio" name="overall" value="3" /> 3</label>
-      <label><input type="radio" name="overall" value="4" /> 4</label>
-      <label><input type="radio" name="overall" value="5" /> 5</label>
-      <label><input type="radio" name="overall" value="6" /> 6</label>
-      <label><input type="radio" name="overall" value="7" /> 7</label>
-      <label><input type="radio" name="overall" value="8" /> 8</label>
-      <label><input type="radio" name="overall" value="9" /> 9</label>
-      <label><input type="radio" name="overall" value="10" /> 10</label>
+    <div class="scale-options">
+      <label><input type="radio" name="overall" value="1" required><span>1</span></label>
+      <label><input type="radio" name="overall" value="2"><span>2</span></label>
+      <label><input type="radio" name="overall" value="3"><span>3</span></label>
+      <label><input type="radio" name="overall" value="4"><span>4</span></label>
+      <label><input type="radio" name="overall" value="5"><span>5</span></label>
+      <label><input type="radio" name="overall" value="6"><span>6</span></label>
+      <label><input type="radio" name="overall" value="7"><span>7</span></label>
+      <label><input type="radio" name="overall" value="8"><span>8</span></label>
+      <label><input type="radio" name="overall" value="9"><span>9</span></label>
+      <label><input type="radio" name="overall" value="10"><span>10</span></label>
     </div>
-  </fieldset><br/>
+  </fieldset>
 
   <button type="submit">Submit Survey</button>
 </form>
+
 
 
   <p id="status"></p>

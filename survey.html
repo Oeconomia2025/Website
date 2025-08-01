@@ -79,10 +79,33 @@
   textarea {
     resize: vertical;
   }
+
+  .logo-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.glow-logo {
+  max-width: 150px;
+  filter: drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 20px #00ffff50);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.glow-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 15px #00ffff) drop-shadow(0 0 30px #00ffff90);
+}
+
 </style>
 
 </head>
 <body>
+  <div class="logo-container">
+  <a href="https://oeconomia.tech" target="_blank" rel="noopener noreferrer">
+    <img src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/OEC%20Logo.png" alt="Oeconomia Logo" class="glow-logo" />
+  </a>
+</div>
+
   <h1>Oeconomia Survey</h1>
 
   <form id="survey-form">

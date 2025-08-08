@@ -163,60 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleMobileMenu();
         }
     });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all navigation links (including dropdown triggers)
-            const navLinks = document.querySelectorAll('.nav-links a[data-section], .dropdown > a[data-section]');
-            
-            // Function to remove active class from all nav links
-            function clearActiveStates() {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                });
-            }
-            
-            // Function to set active state
-            function setActiveNavLink(targetSection) {
-                clearActiveStates();
-                
-                // Find and activate the matching nav link
-                navLinks.forEach(link => {
-                    const linkSection = link.getAttribute('data-section') || 
-                                      link.getAttribute('href').replace('#', '');
-                    
-                    if (linkSection === targetSection) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-            
-            // Add click event listeners to all nav links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Get the target section from data-section attribute or href
-                    const targetSection = this.getAttribute('data-section') || 
-                                         this.getAttribute('href').replace('#', '');
-                    
-                    // Set this link as active
-                    setActiveNavLink(targetSection);
-                });
-            });
-            
-            // Optional: Set active state based on scroll position
-            function updateActiveOnScroll() {
-                const sections = document.querySelectorAll('section[id]');
-                const scrollPosition = window.scrollY + 100; // Offset for fixed nav
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
-                    
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                        setActiveNavLink(sectionId);
-                    }
-                });
-            }
     
     // Close menu on window resize if going back to desktop
     window.addEventListener('resize', () => {

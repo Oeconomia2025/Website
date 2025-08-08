@@ -136,6 +136,35 @@ nav:hover {
   width: 100%;
 }
 
+
+        /* Active state for regular nav links */
+        .nav-links a.active {
+            color: #ff00ff !important; /* Pink color */
+        }
+
+        /* Active state for dropdown trigger links */
+        .dropdown > a.active {
+            color: #ff00ff !important; /* Pink color */
+        }
+
+        /* Enhanced active state with underline */
+        .nav-links a.active::after,
+        .dropdown > a.active::after {
+            width: 100% !important;
+            background:  linear-gradient(45deg, #00d4ff, #ff00ff);
+        }
+
+        /* Optional: Add a subtle glow effect when active */
+        .nav-links a.active,
+        .dropdown > a.active {
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+
+
+
+
+
 .nav-buttons {
   display: flex;
   gap: 1rem;
@@ -494,6 +523,7 @@ nav:hover {
 
 /* Footer */
 .footer {
+  height: 90%;
   background: linear-gradient(
     135deg,
     rgba(10, 10, 10, 0.9) 0%,
@@ -1108,7 +1138,7 @@ nav:hover {
 }
 
 .menu-toggle:focus {
-  outline: None; /* Remove focus outline */
+  outline: none; /* Remove focus outline */
 }
 
 /* Ensure Font Awesome icon inherits the color */

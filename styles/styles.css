@@ -1118,7 +1118,6 @@ nav:hover {
   }
 }
 
-/* Hamburger Menu Icon Fix - Add this to your styles.css */
 
 .menu-toggle {
   display: none; /* Hidden by default, shows on mobile */
@@ -1225,9 +1224,10 @@ nav:hover {
 }
 
 .mobile-nav-links a:hover {
+  min-width: 190px;
   color: #00d4ff;
   background: rgba(0, 212, 255, 0.1);
-  transform: translateX(10px);
+  transform: scale(1.1);
 }
 
 .mobile-nav-buttons {

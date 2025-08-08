@@ -1108,7 +1108,7 @@ nav:hover {
 }
 
 .menu-toggle:focus {
-  outline: #00d4ff; /* Remove focus outline */
+  outline: None; /* Remove focus outline */
 }
 
 /* Ensure Font Awesome icon inherits the color */

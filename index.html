@@ -56,13 +56,13 @@
           class="logo"
         />
         <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#products">Services</a></li>
-          <li><a href="#blockchain-networks">Networks</a></li>
-
+    <li><a href="#home" data-section="home">Home</a></li>
+    <li><a href="#features" data-section="features">Features</a></li>
+    <li><a href="#products" data-section="products">Services</a></li>
+    <li><a href="#blockchain-networks" data-section="blockchain-networks">Networks</a></li>
+ 
 <li class="dropdown" id="insightsDropdown">
-  <a href="#cta">Insights</a>
+        <a href="#cta" data-section="cta">Insights</a>
   <div class="dropdown-content">
     <div class="dropdown-layout">
       <!-- UPDATED: Static preview now clickable -->
@@ -96,7 +96,8 @@
 </li>
 
 <li class="dropdown" id="moreDropdown">
-  <a href="#footer">More</a>
+        <a href="#footer" data-section="footer">More</a>
+
   <div class="dropdown-content">
     <div class="dropdown-layout">
       <!-- UPDATED: Static preview now clickable -->
@@ -858,7 +859,7 @@
               <li><a href="https://oeconomia.io/swap" rel="noopener">Swap/Bridge</a></li>
               <li><a href="https://oeconomia.io/liquidity" rel="noopener">Liquidity</a></li>
               <li><a href="https://oeconomia.io/lend" rel="noopener">Lending</a></li>
-              <li><a href="https://oeconomia.io/nft-market" rel="noopener">NFT Marketplace</a></li>
+              <li><a href="https://oeconomia.io/" rel="noopener">NFT Marketplace</a></li>
               <li><a href="https://oeconomia.io/" rel="noopener">Contract Creator</a></li>
             </ul>
           </div>
@@ -1207,6 +1208,77 @@ document.addEventListener('DOMContentLoaded', function() {
     startUpdates();
 });
 
+    </script>
+
+    <script>
+        // Add this JavaScript to your script.js file or in a script tag
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all navigation links (including dropdown triggers)
+            const navLinks = document.querySelectorAll('.nav-links a[data-section], .dropdown > a[data-section]');
+            
+            // Function to remove active class from all nav links
+            function clearActiveStates() {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+            }
+            
+            // Function to set active state
+            function setActiveNavLink(targetSection) {
+                clearActiveStates();
+                
+                // Find and activate the matching nav link
+                navLinks.forEach(link => {
+                    const linkSection = link.getAttribute('data-section') || 
+                                      link.getAttribute('href').replace('#', '');
+                    
+                    if (linkSection === targetSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Add click event listeners to all nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Get the target section from data-section attribute or href
+                    const targetSection = this.getAttribute('data-section') || 
+                                         this.getAttribute('href').replace('#', '');
+                    
+                    // Set this link as active
+                    setActiveNavLink(targetSection);
+                });
+            });
+            
+            // Optional: Set active state based on scroll position
+            function updateActiveOnScroll() {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPosition = window.scrollY + 100; // Offset for fixed nav
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        setActiveNavLink(sectionId);
+                    }
+                });
+            }
+            
+            // Optional: Update active state on scroll
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(updateActiveOnScroll, 50);
+            });
+            
+            // Set initial active state (e.g., Home)
+            setActiveNavLink('home');
+        });
     </script>
 
   </body>

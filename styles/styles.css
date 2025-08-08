@@ -1255,6 +1255,13 @@ nav:hover {
   position: relative;
 }
 
+.menu-toggle i {
+  pointer-events: none; /* This prevents the icon from blocking clicks */
+  color: inherit;
+  background: transparent;
+  font-size: inherit;
+}
+
 .menu-toggle:hover {
   color: #00d4ff;
   transform: scale(1.1);

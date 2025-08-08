@@ -109,7 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li><a href="#footer">More</a></li>
                 </ul>
                 <div class="mobile-nav-buttons">
-                    <button class="dapp-btn" onclick="launchDApp()">Launch DApp</button>
+                    <a href="https://oeconomia.io/"  target="_blank" rel="noopener noreferrer">
+       <button class="dapp-btn" onclick="launchDApp()">Launch DApp</button></a>
                 </div>
             </div>
         `;

@@ -73,29 +73,6 @@ nav:hover {
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
 
-        /* Active state for regular nav links */
-        .nav-links a.active {
-            color: #ff00ff !important; /* Pink color */
-        }
-
-        /* Active state for dropdown trigger links */
-        .dropdown > a.active {
-            color: #ff00ff !important; /* Pink color */
-        }
-
-        /* Enhanced active state with underline */
-        .nav-links a.active::after,
-        .dropdown > a.active::after {
-            width: 100% !important;
-            background: #ff00ff !important; /* Pink underline */
-        }
-
-        /* Optional: Add a subtle glow effect when active */
-        .nav-links a.active,
-        .dropdown > a.active {
-            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-        }
-
 .nav-content {
   display: flex;
   justify-content: space-between;

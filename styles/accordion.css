@@ -47,8 +47,7 @@
 
 /* Accordion Styles */
 .accordion {
-  width: 100%;
-  max-width: 1100px;
+  width: auto;
 }
 
 .accordion-item {

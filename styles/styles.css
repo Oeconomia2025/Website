@@ -188,12 +188,13 @@ nav:hover {
 /* Add to styles.css */
 .mobile-toggle{
   display:flex; flex-direction:column; justify-content:space-between;
-  width:30px; height:24px; background:none; border:none; cursor:pointer; z-index:1001;
+  width:30px; height:24px; background:none; border:none; cursor:pointer; z-index:1001; position:relative;
 }
 .hamburger{ width:100%; height:3px; background:#00d4ff; border-radius:2px; transition:all .3s ease; transform-origin:center; }
-.mobile-toggle.active .hamburger:nth-child(1){ transform:rotate(45deg) translate(6px, 6px); }
+.mobile-toggle.active .hamburger:nth-child(1){ transform:rotate(45deg) translate(6px,6px); }
 .mobile-toggle.active .hamburger:nth-child(2){ opacity:0; }
-.mobile-toggle.active .hamburger:nth-child(3){ transform:rotate(-45deg) translate(6px, -6px); }
+.mobile-toggle.active .hamburger:nth-child(3){ transform:rotate(-45deg) translate(6px,-6px); }
+
 
 
 .dapp-btn:hover {

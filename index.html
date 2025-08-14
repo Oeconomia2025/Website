@@ -195,6 +195,26 @@
       </div>
     </nav>
 
+
+
+    <!-- Mobile drawer -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-content">
+    <ul class="mobile-nav-links">
+      <li><a href="#home"   data-section="home">Home</a></li>
+      <li><a href="#features" data-section="features">Features</a></li>
+      <li><a href="#products" data-section="products">Services</a></li>
+      <li><a href="#blockchain-networks" data-section="blockchain-networks">Networks</a></li>
+      <li><a href="#cta" data-section="cta">Insights</a></li>
+      <li><a href="#footer" data-section="footer">More</a></li>
+    </ul>
+    <div class="mobile-nav-buttons">
+      <button class="dapp-btn" onclick="launchDApp()">Launch DApp</button>
+    </div>
+  </div>
+</div>
+
+
     <!-- Hero Section -->
     <section class="hero" id="home">
       <div class="container">
@@ -1285,6 +1305,37 @@ document.addEventListener('DOMContentLoaded', function() {
             setActiveNavLink('home');
         });
     </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btn  = document.getElementById('menu-toggle');   // your 3-bar button
+  const menu = document.getElementById('mobileMenu');     // the drawer
+
+  function closeMenu() {
+    menu.classList.remove('active');
+    btn.classList.remove('active');
+    btn.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+
+  function openMenu() {
+    menu.classList.add('active');
+    btn.classList.add('active');
+    btn.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.contains('active') ? closeMenu() : openMenu();
+  });
+
+  // click outside & ESC to close
+  document.addEventListener('click', (e) => {
+    if (menu.classList.contains('active') && !menu.contains(e.target) && e.target !== btn) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+});
+</script>
 
   </body>
 </html>

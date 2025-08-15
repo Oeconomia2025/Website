@@ -237,7 +237,7 @@ function setupTokenomicsInteractions() {
 
 // Function to copy contract address
 function copyTokenomicsContract() {
-  const contractAddress = "0x742d35Cc6634C0532925a3b8D4C";
+  const contractAddress = "0xb62870F6861BF065F5a6782996AB070EB9385d05";
   
   navigator.clipboard.writeText(contractAddress).then(() => {
     // Determine which element triggered the copy

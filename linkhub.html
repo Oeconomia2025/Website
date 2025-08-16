@@ -1,0 +1,589 @@
+.html
+---
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Oeconomia — All Links</title>
+    <meta
+      name="description"
+      content="One-stop link hub for Oeconomia — governance, dApp, docs, token info, and community."
+    />
+    <meta property="og:title" content="Oeconomia — All Links" />
+    <meta
+      property="og:description"
+      content="Governance • Swap/Bridge • Lending • Docs • Token • Community"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0ae" />
+    <style>
+      :root {
+        --grad-a: #00d4ff; /* cyan */
+        --grad-b: #ff00ff; /* magenta */
+        --bg: #0a0a0b; /* near black */
+        --card: #0f0f12cc; /* translucent */
+        --text: #f2f6fb; /* off-white */
+        --muted: #b9c2cc; /* muted */
+        --ring: #ffffff33;
+        --border: #ffffff22;
+        --success: #31d0aa;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Inter, "Helvetica Neue", Arial, Noto Sans, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(
+            1200px 800px at 10% -10%,
+            #111 0%,
+            transparent 60%
+          ),
+          radial-gradient(1000px 600px at 100% 0%, #111 0%, transparent 60%),
+          linear-gradient(45deg, var(--grad-a), var(--grad-b));
+        background-attachment: fixed;
+      }
+      .wrap {
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+      }
+      .card {
+        width: 100%;
+        max-width: 720px;
+        background: var(--card);
+        backdrop-filter: blur(14px);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 28px 20px 24px;
+        box-shadow: 0 10px 40px #00000080;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 4px 8px 14px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 14px;
+      }
+      .logo {
+        width: 120px;
+        height: 120px;
+        border-radius: 16px;
+        background: linear-gradient(135deg,black, #0d1117);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        border-radius: inherit;
+      }
+      .title {
+        line-height: 1.05;
+      }
+      .title h1 {
+        font-size: 26px;
+        margin: 0;
+      }
+      .title p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+      .section {
+        margin-top: 50px;
+      }
+      .section h2 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        margin: 10px 8px;
+        color: var(--muted);
+      }
+      .btn {
+        --pad: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: var(--pad);
+        background: #0c0f1299;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        text-decoration: none;
+        color: var(--text);
+        transition: 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        background: #27313a99;
+        border-color: #ffffff55;
+        box-shadow: 0 8px 24px #00000066;
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .fa-icon,
+      .btn .ico {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 4px;
+        background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 20px;
+      }
+      .btn .meta {
+        margin-left: auto;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+      }
+      .row .btn {
+        flex: 1;
+      }
+      .tiny {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 10px;
+      }
+      .contract {
+        display: flex;
+        background-color: #084868;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border: 1px dashed var(--border);
+        border-radius: 12px;
+      }
+      .pill {
+        min-width: 75px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text);
+        gap: 6px;
+        padding: 10px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #0d1117b3;
+        font-size: 12px;
+        cursor: pointer;
+        
+      }
+      .success {
+        color: var(--success);
+      }
+      @media (min-width: 680px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+            <section class="section" aria-labelledby="Oeconomia-Link-Hub" id="Oeconomia-Link-Hub"></section>
+</section>
+            <div class="wrap">
+      <main class="card">
+
+        <header>
+          <div class="logo">
+            <img
+              src="https://pub-37d61a7eb7ae45898b46702664710cb2.r2.dev/images/OEC%20Logo.png"
+              alt="Oeconomia logo"
+              width="64"
+              height="64"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+          <div class="title">
+            <h1>Oeconomia Link Hub</h1>
+            <p>Governance • Swap/Bridge • Lending • Docs • Token • Community</p>
+
+          </div>
+        </header>
+
+        <!-- START HERE -->
+        <section class="section" aria-labelledby="start-here">
+          <h2 id="start-here">Start here</h2>
+          <div class="grid">
+            <a
+              class="btn"
+              href="https://oeconomia.tech/"
+              target="_blank"
+              rel="noopener"
+              style="background-color: #780b86;"
+              ><i class="fa-solid fa-house fa-icon" aria-hidden="true"></i
+              ><span>Main Website</span
+              ><span class="meta">oeconomia.tech</span></a
+            >
+            <a
+              class="btn"
+              href="https://oeconomia.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="background-color: #780b86;"
+            >
+              <i class="fa-solid fa-rocket fa-icon" aria-hidden="true"></i>
+              <span>Launch DApp</span>
+              <span class="meta">oeconomia.io</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/documentation/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fa-solid fa-book fa-icon" aria-hidden="true"></i>
+              <span>Documentation</span>
+              <span class="meta">Overview & Protocols</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.tech/tokeninfo/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fa-solid fa-coins fa-icon" aria-hidden="true"></i>
+              <span>Token Info</span>
+              <span class="meta">How to buy & roadmap</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- SOCIALS -->
+        <section class="section" aria-labelledby="socials">
+          <h2 id="socials">Socials</h2>
+          <div class="grid">
+            <a
+              class="btn"
+              href="https://x.com/Oeconomia2025"
+              target="_blank"
+              rel="noopener"
+              aria-label="Follow on X/Twitter"
+            >
+              <i class="fa-brands fa-x-twitter fa-icon" aria-hidden="true"></i>
+              <span>Twitter / X</span>
+              <span class="meta">Twitter/X</span>
+            </a>
+            <a
+              class="btn"
+              href="https://t.me/OeconomiaDAO"
+              target="_blank"
+              rel="noopener"
+              aria-label="Join Telegram"
+            >
+              <i class="fa-brands fa-telegram fa-icon" aria-hidden="true"></i>
+              <span>Telegram</span>
+              <span class="meta">Announcements</span>
+            </a>
+            <a
+              class="btn"
+              href="https://www.youtube.com/@Oeconomia2025"
+              target="_blank"
+              rel="noopener"
+              aria-label="YouTube Channel"
+            >
+              <i class="fa-brands fa-youtube fa-icon" aria-hidden="true"></i>
+              <span>YouTube</span>
+              <span class="meta">Videos</span>
+            </a>
+            <a
+              class="btn"
+              href="https://github.com/Oeconomia2025"
+              target="_blank"
+              rel="noopener"
+              aria-label="GitHub"
+            >
+              <i class="fa-brands fa-github fa-icon" aria-hidden="true"></i>
+              <span>GitHub</span>
+              <span class="meta">Code</span>
+            </a>
+                        <a
+              class="btn"
+              href="https://medium.com/@oeconomia2025"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-medium fa-icon" aria-hidden="true"></i>
+              <span>Medium</span>
+              <span class="meta">Weekly digest</span>
+            </a>
+            <a
+              class="btn"
+              href="https://discord.com/invite/XSgZgeVD"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-discord fa-icon" aria-hidden="true"></i>
+              <span>Discord</span>
+              <span class="meta">Join the community</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="contract">
+          <h2 id="contract">Token Contract</h2>
+          <div class="contract">
+            <span>Address:</span>
+            <code id="addr">0xb62870F6861BF065F5a6782996AB070EB9385d05</code>
+            <button id="copy" class="pill" type="button" aria-live="polite">
+              Copy
+            </button>
+            <a
+              class="pill"
+              href="https://etherscan.io/token/0xb62870F6861BF065F5a6782996AB070EB9385d05"
+              target="_blank"
+              rel="noopener"
+              >View on Etherscan</a
+            >
+          </div>
+          <p class="tiny">
+            Always verify contract addresses and links before interacting. Stay
+            safe.
+          </p>
+        </section>
+
+        <!-- dAPP SHORTCUTS -->
+        <section class="section" aria-labelledby="dapp">
+          <h2 id="dapp">dApp shortcuts</h2>
+          <div class="grid">
+            <a
+              class="btn"
+              href="https://oeconomia.io/swap"
+              target="_blank"
+              rel="noopener"
+            >
+              <i
+                class="fa-solid fa-arrows-rotate fa-icon"
+                aria-hidden="true"
+              ></i>
+              <span>Swap / Bridge</span>
+              <span class="meta">oeconomia.io/swap</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.io/liquidity"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-droplet fa-icon" aria-hidden="true"></i>
+              <span>Liquidity</span>
+              <span class="meta">oeconomia.io/liquidity</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.io/lend"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-chart-line fa-icon" aria-hidden="true"></i>
+              <span>Lending</span>
+              <span class="meta">oeconomia.io/lend</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.io/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-image fa-icon" aria-hidden="true"></i>
+              <span>NFT Marketplace</span>
+              <span class="meta">oeconomia.io</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.io/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i
+                class="fa-solid fa-screwdriver-wrench fa-icon"
+                aria-hidden="true"
+              ></i>
+              <span>Contract Creator</span>
+              <span class="meta">oeconomia.io</span>
+            </a>
+                                    <a
+              class="btn"
+              href="https://oeconomia.io"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-chart-line fa-icon" aria-hidden="true"></i>
+              <span>Live Stats</span>
+              <span class="meta">Protocol metrics</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- PROTOCOL SHORTCUTS -->
+        <section class="section" aria-labelledby="protocols">
+          <h2 id="protocols">Protocols' Documentation</h2>
+          <div class="grid">
+            <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/governanceguide/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i
+                class="fa-solid fa-shield-halved fa-icon"
+                aria-hidden="true"
+              ></i>
+              <span>Oeconomia Governance</span>
+              <span class="meta">Guide</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/documentation/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-landmark fa-icon" aria-hidden="true"></i>
+              <span>Alluria - Lending</span>
+              <span class="meta">Docs</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/documentation/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-bridge fa-icon" aria-hidden="true"></i>
+              <span>Eloqura - Swap / Bridge</span>
+              <span class="meta">Docs</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/documentation/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-palette fa-icon" aria-hidden="true"></i>
+              <span>Artivya - NFT Marketplace</span>
+              <span class="meta">Docs</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/documentation/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-cubes fa-icon" aria-hidden="true"></i>
+              <span>Iridescia - Contracts & DevOps</span>
+              <span class="meta">Docs</span>
+            </a>
+                        <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/flowcharts/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-map fa-icon" aria-hidden="true"></i>
+              <span>Protocol Flowcharts</span>
+              <span class="meta">Visuals</span>
+            </a>
+                        <a
+              class="btn"
+              href="https://oeconomia.tech/content/more/tokenomics/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-chart-pie fa-icon" aria-hidden="true"></i>
+              <span>Tokenomics (Docs)</span>
+              <span class="meta">Supply • Fees • Model</span>
+            </a>
+            <a
+              class="btn"
+              href="https://oeconomia.tech/tokeninfo/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-solid fa-compass fa-icon" aria-hidden="true"></i>
+              <span>Token Info (Site)</span>
+              <span class="meta">How to Buy</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- DOCS & TOKENOMICS -->
+        <section class="section" aria-labelledby="docs">
+          <h2 id="docs"></h2>
+          <div class="grid">
+
+
+
+          </div>
+        </section>
+
+        <footer class="section" style="margin-top: 18px">
+          <div class="row">
+            <a class="btn"  style="justify-content: center;" href="#Oeconomia-Link-Hub"
+              ><i class="fa-solid fa-arrow-up fa-icon" aria-hidden="true"></i
+              ><span>Back to top</span></a
+            >
+          </div>
+          <p class="tiny">
+            © <span id="yr"></span> Oeconomia • Non‑custodial • No KYC •
+            Immutable Code
+          </p>
+        </footer>
+      </main>
+    </div>
+    <script>
+      // Copy to clipboard for contract
+      const copyBtn = document.getElementById("copy");
+      const addrEl = document.getElementById("addr");
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(addrEl.textContent.trim());
+          copyBtn.textContent = "Copied!";
+          copyBtn.classList.add("success");
+          setTimeout(() => {
+            copyBtn.textContent = "Copy";
+            copyBtn.classList.remove("success");
+          }, 1400);
+        } catch (e) {
+          copyBtn.textContent = "Press Ctrl+C";
+        }
+      });
+      document.getElementById("yr").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

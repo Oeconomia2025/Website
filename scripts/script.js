@@ -104,7 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li><a href="#features">Features</a></li>
                     <li><a href="#products">Services</a></li>
                     <li><a href="#blockchain-networks">Networks</a></li>
-
+                    <li><a href="#roadmap-section">Roadmap</a></li>
+                    <li><a href="#cta">Insights</a></li>
+                    <li><a href="#footer">More</a></li>
                     <li><a href="https://oeconomia.tech/tokeninfo/">Token Info</a></li>
                 </ul>
                 <div class="mobile-nav-buttons">

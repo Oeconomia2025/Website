@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li><a href="#roadmap-section">Roadmap</a></li>
                     <li><a href="#cta">Insights</a></li>
                     <li><a href="#footer">More</a></li>
-                    <li><a href="tokeninfo">Token Info</a></li>
+                    <li><a href="https://oeconomia.tech/tokeninfo/">Token Info</a></li>
                 </ul>
                 <div class="mobile-nav-buttons">
                     <a href="https://oeconomia.io/"  target="_blank" rel="noopener noreferrer">
